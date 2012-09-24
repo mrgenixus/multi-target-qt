@@ -1,0 +1,25 @@
+# project/project.pro
+CONFIG += ordered
+TEMPLATE = subdirs
+SUBDIRS = lib app1 app2
+
+# project/lib/lib.pro
+CONFIG += staticlib
+CONFIG -= qt
+DESTDIR = ..
+TEMPLATE = lib
+SOURCES += stuff.cpp
+
+# project/app1/app1.pro
+LIBS += -L.. -llib
+DESTDIR = ..
+INCLUDEPATH = ../lib
+HEADERS += app1.h
+SOURCES += app1.cpp
+
+# project/app2/app2.pro
+LIBS += -L.. -llib
+DESTDIR = ..
+INCLUDEPATH = ../lib
+HEADERS += app2.h
+SOURCES += app2.cpp

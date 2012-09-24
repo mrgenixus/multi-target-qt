@@ -1,0 +1,987 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>#qt</title>
+</head>
+<body>
+<h1>Conversation with #qt</h1>
+<b>Conversation with #qt on Sat 31 Jul 2010 03:40:51 PM MDT:</b><br>
+<font size="2">(03:40:51 PM)</font><b><font size="3"> The topic for #qt is: Latest Qt: 4.6.3 | Paste code to <a href="http://pastebin.com/">http://pastebin.com/</a> | docs: <a href="http://qt.nokia.com/doc/">http://qt.nokia.com/doc/</a> | Qt-Creator: #qt-creator | Bugs: <a href="http://bugreports.qt.nokia.com/">http://bugreports.qt.nokia.com/</a> | Off-topic: #qt-chat | Forum: <a href="http://www.qtcentre.org/">http://www.qtcentre.org/</a> | Mailing list: <a href="http://lists.trolltech.com/qt-interest/">http://lists.trolltech.com/qt-interest/</a></font></b><font size="3"></font><br>
+<font size="2">(03:40:59 PM)</font><font size="3"> <b>anuvrat:</b> chakie: .. all I was able to find on google was the opposite case</font><br>
+<font size="2">(03:41:08 PM)</font><b><font size="3"> mck182 [<i>~quassel@ip-2-53.hlucinnet.cz</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(03:41:15 PM)</font><font size="3"> <b>mrgenixus:</b> is there a standard way to get data from a QNetworkReply?</font><br>
+<font size="2">(03:41:22 PM)</font><font size="3"> <b>chakie:</b> well, you can connect a signal to a base class slot just fine</font><br>
+<font size="2">(03:41:29 PM)</font><font size="3"> <b>chakie:</b> tested to verify it</font><br>
+<font size="2">(03:41:32 PM)</font><b><font size="3"> Rajko left the room (quit: Read error: Connection reset by peer).</font></b><font size="3"></font><br>
+<font size="2">(03:41:38 PM)</font><b><font size="3"> zombi- [<i>zombi@92.237.168.188</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(03:41:47 PM)</font><font size="3"> <b>anuvrat:</b> people were not able to access base class stuff from derived class... while my derived class is not able to locate its own slot</font><br>
+<font size="2">(03:42:20 PM)</font><font size="3"> <b>chakie:</b> acquireInfo() is a base class slot</font><br>
+<font size="2">(03:42:22 PM)</font><font size="3"> <b>anuvrat:</b> chakie .. i do not need to access base class slot ..</font><br>
+<font size="2">(03:42:34 PM)</font><font size="3"> <b>anuvrat:</b> acquire info is there in the derived class itselrf</font><br>
+<font size="2">(03:42:42 PM)</font><b><font size="3"> kaini_ left the room (quit: Remote host closed the connection).</font></b><font size="3"></font><br>
+<font size="2">(03:42:47 PM)</font><font size="3"> <b>anuvrat:</b> thats what is my problem</font><br>
+<font size="2">(03:42:58 PM)</font><font size="3"> <b>chakie:</b> i'm getting tired :)</font><br>
+<font size="2">(03:43:11 PM)</font><font size="3"> <b>chakie:</b> are both the classes getting moc:ed=</font><br>
+<font size="2">(03:43:13 PM)</font><font size="3"> <b>chakie:</b> ?</font><br>
+<font size="2">(03:43:40 PM)</font><font size="3"> <b>chakie:</b> what is the warning if you do exactly:</font><br>
+<font size="2">(03:43:54 PM)</font><font size="3"> <b>chakie:</b> connect(newConnectionDialogUi.buttonBox,SIGNAL(accepted()),  this, SLOT(acquireInfo()));</font><br>
+<font size="2">(03:44:10 PM)</font><font size="3"> <b>anuvrat:</b> yes .. there is no error .. compile time I mean</font><br>
+<font size="2">(03:44:16 PM)</font><font size="3"> <b>anuvrat:</b> as I had pasted earlier</font><br>
+<font size="2">(03:44:20 PM)</font><font size="3"> <b>chakie:</b> runtime, that is</font><br>
+<font size="2">(03:44:31 PM)</font><font size="3"> <b>anuvrat:</b> Object::connect: No such slot ConnectionData::this-&gt;acquireInfo()</font><br>
+<font size="2">(03:44:37 PM)</font><b><font size="3"> OkropNick left the room (quit: Remote host closed the connection).</font></b><font size="3"></font><br>
+<font size="2">(03:45:00 PM)</font><b><font size="3"> leinir left the room (quit: Remote host closed the connection).</font></b><font size="3"></font><br>
+<font size="2">(03:45:12 PM)</font><font size="3"> <b>anuvrat:</b> and hence the statements that are supposed to be executed when the slot is called do not get executed</font><br>
+<font size="2">(03:45:15 PM)</font><b><font size="3"> leinir [<i>~leinir@amarok/usability/leinir</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(03:45:27 PM)</font><b><font size="3"> Natural left the room.</font></b><font size="3"></font><br>
+<font size="2">(03:45:28 PM)</font><font size="3"> <b>chakie:</b> the this-&gt; looks strange there</font><br>
+<font size="2">(03:45:34 PM)</font><b><font size="3"> xxcv [<i>~asdf@c122-106-162-239.carlnfd1.nsw.optusnet.com.au</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(03:45:40 PM)</font><font size="3"> <b>chakie:</b> if i connect to something that doesn't exist i get something like:</font><br>
+<font size="2">(03:45:49 PM)</font><font size="3"> <b>chakie:</b> Object::connect: No such slot StateMachine::foo() in states/StateMachine.cpp:29</font><br>
+<font size="2">(03:45:54 PM)</font><b><font size="3"> RageOfThou left the room (quit: Ping timeout: 245 seconds).</font></b><font size="3"></font><br>
+<font size="2">(03:45:58 PM)</font><font size="3"> <b>chakie:</b> no this-&gt;</font><br>
+<font size="2">(03:46:16 PM)</font><font size="3"> <b>chakie:</b> do you have exactly: connect(newConnectionDialogUi.buttonBox,SIGNAL(accepted()),  this, SLOT(acquireInfo()));</font><br>
+<font size="2">(03:46:25 PM)</font><font size="3"> <b>chakie:</b> no extra this-&gt; there?</font><br>
+<font size="2">(03:46:35 PM)</font><font size="3"> <b>anuvrat:</b> hold on .. lemme  run again</font><br>
+<font size="2">(03:47:20 PM)</font><font size="3"> <b>chakie:</b> and do both files get moc:ed, compiled and linked in?</font><br>
+<font size="2">(03:48:52 PM)</font><b><font size="3"> LUDO00011 [<i>~LUDO@ANantes-157-1-173-31.w90-59.abo.wanadoo.fr</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(03:49:22 PM)</font><b><font size="3"> angasule [<i>~angasule@190.2.33.49</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(03:49:42 PM)</font><font size="3"> <b>anuvrat:</b> chakie .. dunno what happened ... went about qmake -project and qmake; make-clean; make and then ./ appplication .. it worked fine</font><br>
+<font size="2">(03:50:00 PM)</font><font size="3"> <b>anuvrat:</b> I had did this more than 10 times before coming up here</font><br>
+<font size="2">(03:50:00 PM)</font><font size="3"> <b>chakie:</b> just running &quot;qmake&quot; would have worked then</font><br>
+<font size="2">(03:50:19 PM)</font><font size="3"> <b>anuvrat:</b> well I had qmaked atleast 10 times before bugging you</font><br>
+<font size="2">(03:50:21 PM)</font><font size="3"> <b>chakie:</b> you never ever need to rerun &quot;qmake -project&quot;</font><br>
+<font size="2">(03:50:39 PM)</font><font size="3"> <b>anuvrat:</b> ah .. btw . I was trying one more thing</font><br>
+<font size="2">(03:50:41 PM)</font><font size="3"> <b>chakie:</b> then one of the headers was missing from HEADERS</font><br>
+<font size="2">(03:50:50 PM)</font><font size="3"> <b>chakie:</b> and didn't get moc:ed</font><br>
+<font size="2">(03:50:56 PM)</font><font size="3"> <b>anuvrat:</b> ohkay</font><br>
+<font size="2">(03:50:57 PM)</font><font size="3"> <b>anuvrat:</b> one more thing</font><br>
+<font size="2">(03:50:58 PM)</font><font size="3"> <b>chakie:</b> likely the derived one</font><br>
+<font size="2">(03:51:04 PM)</font><b><font size="3"> LUDO0001 left the room (quit: Ping timeout: 260 seconds).</font></b><font size="3"></font><br>
+<font size="2">(03:51:20 PM)</font><font size="3"> <b>anuvrat:</b> hmm... will remember that before bugging someone the next time</font><br>
+<font size="2">(03:51:25 PM)</font><font size="3"> <b>chakie:</b> qmake -project is optionally run once when the project is started, then never again</font><br>
+<font size="2">(03:51:36 PM)</font><b><font size="3"> blauzahl-laptop [<i>~ax@kde/alspehr</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(03:51:40 PM)</font><font size="3"> <b>chakie:</b> as you lose all your .pro file contents and all extra customization</font><br>
+<font size="2">(03:51:50 PM)</font><font size="3"> <b>anuvrat:</b> its 3 am here ..  i guess I need some sleep now ...</font><br>
+<font size="2">(03:51:53 PM)</font><font size="3"> <b>anuvrat:</b> yeah.. chakie ..</font><br>
+<font size="2">(03:52:08 PM)</font><font size="3"> <b>anuvrat:</b> I had to add QT += network gui everytime I did qmake -project</font><br>
+<font size="2">(03:52:24 PM)</font><font size="3"> <b>chakie:</b> never do -project again for this project</font><br>
+<font size="2">(03:52:53 PM)</font><font size="3"> <b>anuvrat:</b> i was trying to overload extraction and insertion operators for the enums I have defined above ...</font><br>
+<font size="2">(03:53:42 PM)</font><font size="3"> <b>anuvrat:</b> but it didn't work.. wasted around 2 hrs tampering stuff ....</font><br>
+<font size="2">(03:54:01 PM)</font><b><font size="3"> blauzahl-laptop is now known as blauzahl</font></b><font size="3"></font><br>
+<font size="2">(03:54:01 PM)</font><font size="3"> <b>anuvrat:</b> then reverted back to extracting int and typecasting it to the enum</font><br>
+<font size="2">(03:54:20 PM)</font><font size="3"> <b>anuvrat:</b> whats the standard qt way to overload the extraction operator?</font><br>
+<font size="2">(03:54:39 PM)</font><font size="3"> <b>chakie:</b> extraction?</font><br>
+<font size="2">(03:55:02 PM)</font><font size="3"> <b>chakie:</b> your commented out streams?</font><br>
+<font size="2">(03:55:22 PM)</font><font size="3"> <b>chakie:</b> i wouldn't use the std streams myself</font><br>
+<font size="2">(03:55:39 PM)</font><font size="3"> <b>peppe:</b> anuvrat: what's the &quot;extraction operator&quot;?</font><br>
+<font size="2">(03:55:49 PM)</font><font size="3"> <b>chakie:</b>                 friend std::istream&amp; operator&gt;&gt; (std::istream &amp;, enum Request&amp;);</font><br>
+<font size="2">(03:55:50 PM)</font><font size="3"> <b>anuvrat:</b> &gt;&gt;</font><br>
+<font size="2">(03:55:51 PM)</font><font size="3"> <b>chakie:</b> i guess</font><br>
+<font size="2">(03:56:01 PM)</font><font size="3"> <b>anuvrat:</b> yeah.. thats what I was taught .. isn't it??</font><br>
+<font size="2">(03:56:06 PM)</font><font size="3"> <b>anuvrat:</b> is it not ?</font><br>
+<font size="2">(03:56:08 PM)</font><b><font size="3"> leinir_ [<i>~leinir@amarok/usability/leinir</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(03:56:21 PM)</font><font size="3"> <b>chakie:</b> dunno what they are formally called...</font><br>
+<font size="2">(03:56:29 PM)</font><b><font size="3"> BtbN left the room (quit: Quit: Verlassend).</font></b><font size="3"></font><br>
+<font size="2">(03:56:36 PM)</font><font size="3"> <b>chakie:</b> apart from stream operators</font><br>
+<font size="2">(03:56:39 PM)</font><font size="3"> <b>anuvrat:</b> yeah.. &gt;&gt; is the extraction operator ..</font><br>
+<font size="2">(03:56:52 PM)</font><font size="3"> <b>anuvrat:</b> tried every way around it ..</font><br>
+<font size="2">(03:57:02 PM)</font><font size="3"> <b>peppe:</b> &quot;right shift operator&quot;? :P</font><br>
+<font size="2">(03:57:20 PM)</font><font size="3"> <b>anuvrat:</b> peppe : good one</font><br>
+<font size="2">(03:57:45 PM)</font><font size="3"> <b>peppe:</b> anuvrat: btw, what do you mean with &quot;whats the standard qt way to overload the extraction operator?&quot;? it's a C++ issue, not a Qt one</font><br>
+<font size="2">(03:57:51 PM)</font><font size="3"> <b>anuvrat:</b> c++ 's operator overloading might make two idiots fight big time</font><br>
+<font size="2">(03:58:26 PM)</font><font size="3"> <b>peppe:</b> if you mean &quot;how do I read text from standard input using Qt&quot;, I would suggest QTextStream which has a ctor that accepts a FILE *</font><br>
+<font size="2">(03:58:28 PM)</font><font size="3"> <b>anuvrat:</b> well.. I mean ... using QDataStream or something similar instead of istream</font><br>
+<font size="2">(03:58:39 PM)</font><font size="3"> <b>anuvrat:</b> and traditional cout stuff</font><br>
+<font size="2">(03:58:40 PM)</font><b><font size="3"> jmesquita [<i>~jmesquita@186.18.244.245</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(03:58:59 PM)</font><font size="3"> <b>chakie:</b> ok, i hand this over to peppe</font><br>
+<font size="2">(03:59:03 PM)</font><b><font size="3"> leinir left the room (quit: Ping timeout: 260 seconds).</font></b><font size="3"></font><br>
+<font size="2">(03:59:04 PM)</font><font size="3"> <b>chakie:</b> night folks!</font><br>
+<font size="2">(03:59:08 PM)</font><font size="3"> <b>peppe:</b> chakie: thank you darling :-P</font><br>
+<font size="2">(03:59:10 PM)</font><font size="3"> <b>anuvrat:</b> chakie .. thanks</font><br>
+<font size="2">(03:59:14 PM)</font><font size="3"> <b>anuvrat:</b> chakie : good night</font><br>
+<font size="2">(03:59:20 PM)</font><font size="3"> <b>chakie:</b> peppe: make it a good one :)</font><br>
+<font size="2">(03:59:39 PM)</font><font size="3"> <b>anuvrat:</b> peppe: .. hold on .. natural call.. brb</font><br>
+<font size="2">(03:59:56 PM)</font><font size="3"> <b>peppe:</b> natural call?</font><br>
+<font size="2">(04:00:16 PM)</font><b><font size="3"> Guest34349 left the room (quit: Remote host closed the connection).</font></b><font size="3"></font><br>
+<font size="2">(04:00:20 PM)</font><font size="3"> <b>chakie:</b> pee/crap</font><br>
+<font size="2">(04:00:22 PM)</font><b><font size="3"> leinir__ [<i>~leinir@5acf7029.bb.sky.com</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(04:00:33 PM)</font><b><font size="3"> mgottschlag [<i>~quassel@f050199040.adsl.alicedsl.de</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(04:00:33 PM)</font><b><font size="3"> mgottschlag left the room (quit: Changing host).</font></b><font size="3"></font><br>
+<font size="2">(04:00:33 PM)</font><b><font size="3"> mgottschlag [<i>~quassel@reactos/tester/phoenix64</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(04:00:34 PM)</font><font size="3"> <b>anuvrat:</b> polite way of asking excuse for bathroom I guesss..</font><br>
+<font size="2">(04:00:36 PM)</font><font size="3"> <b>anuvrat:</b> brb</font><br>
+<font size="2">(04:00:38 PM)</font><font size="3"> <b>anuvrat:</b> its urgent</font><br>
+<font size="2">(04:00:40 PM)</font><font size="3"> <b>anuvrat:</b> brb</font><br>
+<font size="2">(04:00:54 PM)</font><font size="3"> <b>peppe:</b> oh well, WHY do you have to justify the fact you're afk?!?</font><br>
+<font size="2">(04:01:26 PM)</font><b><font size="3"> leinir_ left the room (quit: Ping timeout: 276 seconds).</font></b><font size="3"></font><br>
+<font size="2">(04:02:16 PM)</font><font size="3"> <b>Seppoz:</b> can i add 2 stylesheets to a QPushButton and toggle them?</font><br>
+<font size="2">(04:03:37 PM)</font><b><font size="3"> jmesquita left the room (quit: Client Quit).</font></b><font size="3"></font><br>
+<font size="2">(04:04:32 PM)</font><font size="3"> <b>anuvrat:</b> afk??</font><br>
+<font size="2">(04:04:34 PM)</font><font size="3"> <b>anuvrat:</b> dunno that</font><br>
+<font size="2">(04:04:38 PM)</font><font size="3"> <b>anuvrat:</b> peppe: I am bakc</font><br>
+<font size="2">(04:04:40 PM)</font><font size="3"> <b>anuvrat:</b> back</font><br>
+<font size="2">(04:04:56 PM)</font><font size="3"> <b>anuvrat:</b> so... overloading extraction operator</font><br>
+<font size="2">(04:05:21 PM)</font><b><font size="3"> leinir__ left the room (quit: Excess Flood).</font></b><font size="3"></font><br>
+<font size="2">(04:05:37 PM)</font><b><font size="3"> leinir__ [<i>~leinir@5acf7029.bb.sky.com</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(04:05:52 PM)</font><font size="3"> <b>anuvrat:</b> peppe peppe are you around ??</font><br>
+<font size="2">(04:06:06 PM)</font><b><font size="3"> kszonek_ [<i>~kszonek@77-253-0-216.adsl.inetia.pl</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(04:06:18 PM)</font><font size="3"> <b>peppe:</b> anuvrat: no :P</font><br>
+<font size="2">(04:07:02 PM)</font><font size="3"> <b>anuvrat:</b> peppe : okay...</font><br>
+<font size="2">(04:07:16 PM)</font><b><font size="3"> kszonek_ left the room (quit: Client Quit).</font></b><font size="3"></font><br>
+<font size="2">(04:07:41 PM)</font><b><font size="3"> abhinandan [<i>~abhi@115.248.143.99</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(04:07:53 PM)</font><font size="3"> <b>anuvrat:</b> never mind</font><br>
+<font size="2">(04:08:00 PM)</font><font size="3"> <b>abhinandan:</b> hello anuvrat</font><br>
+<font size="2">(04:08:06 PM)</font><font size="3"> <b>anuvrat:</b> even if you're not .. resolve my problem</font><br>
+<font size="2">(04:08:12 PM)</font><b><font size="3"> kszonek left the room (quit: Read error: Operation timed out).</font></b><font size="3"></font><br>
+<font size="2">(04:08:16 PM)</font><font size="3"> <b>anuvrat:</b> abhinandan: so you are finally up</font><br>
+<font size="2">(04:08:36 PM)</font><font size="3"> <b>abhinandan:</b> anuvrat : Thanks</font><br>
+<font size="2">(04:08:47 PM)</font><b><font size="3"> abhinandan left the room (quit: Client Quit).</font></b><font size="3"></font><br>
+<font size="2">(04:08:59 PM)</font><font size="3"> <b>anuvrat:</b> abhinandan: with IRC I mean..</font><br>
+<font size="2">(04:10:27 PM)</font><font size="3"> <b>anuvrat:</b> peppe: overloading .... help me out !!!</font><br>
+<font size="2">(04:10:29 PM)</font><b><font size="3"> kvasir left the room (quit: Quit: leaving).</font></b><font size="3"></font><br>
+<font size="2">(04:10:45 PM)</font><b><font size="3"> crackedmind_ is now known as crackedmind</font></b><font size="3"></font><br>
+<font size="2">(04:11:02 PM)</font><b><font size="3"> ljp [<i>~quackquac@CPE-58-173-176-242.wucz1.woo.bigpond.net.au</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(04:12:03 PM)</font><b><font size="3"> cyndis left the room (quit: Remote host closed the connection).</font></b><font size="3"></font><br>
+<font size="2">(04:13:04 PM)</font><b><font size="3"> dpb left the room (quit: Ping timeout: 248 seconds).</font></b><font size="3"></font><br>
+<font size="2">(04:13:14 PM)</font><b><font size="3"> mzanetti_ left the room (quit: Ping timeout: 276 seconds).</font></b><font size="3"></font><br>
+<font size="2">(04:13:14 PM)</font><b><font size="3"> hhurtta left the room (quit: Ping timeout: 260 seconds).</font></b><font size="3"></font><br>
+<font size="2">(04:13:15 PM)</font><font size="3"> <b>anuvrat:</b> :(</font><br>
+<font size="2">(04:13:22 PM)</font><font size="3"> <b>anuvrat:</b> no reply :(:(</font><br>
+<font size="2">(04:13:54 PM)</font><b><font size="3"> cyndis [<i>cyndis@lakka.kapsi.fi</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(04:14:09 PM)</font><font size="3"> <b>anuvrat:</b> peppe : <a href="http://www.peppesonline.com/">http://www.peppesonline.com/</a> belongs to you??</font><br>
+<font size="2">(04:14:31 PM)</font><b><font size="3"> mnurmi left the room (quit: Ping timeout: 265 seconds).</font></b><font size="3"></font><br>
+<font size="2">(04:14:59 PM)</font><font size="3"> <b>***aka-</b> clears out his eyes </font><br>
+<font size="2">(04:15:05 PM)</font><font size="3"> <b>peppe:</b> anuvrat: hahahah wtf!</font><br>
+<font size="2">(04:15:10 PM)</font><b><font size="3"> dpb [<i>~dpb@lakka.kapsi.fi</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(04:15:10 PM)</font><b><font size="3"> dpb left the room (quit: Changing host).</font></b><font size="3"></font><br>
+<font size="2">(04:15:10 PM)</font><b><font size="3"> dpb [<i>~dpb@unaffiliated/dpb</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(04:15:29 PM)</font><b><font size="3"> xxcv left the room (quit: Ping timeout: 240 seconds).</font></b><font size="3"></font><br>
+<font size="2">(04:16:30 PM)</font><b><font size="3"> pumphaus [<i>~pumphaus@p4FF77856.dip.t-dialin.net</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(04:16:33 PM)</font><font size="3"> <b>Jartza:</b> that site reminds me of one time when I mistyped &quot;www.af.mil&quot; and forgot the &quot;.mil&quot; -part :)</font><br>
+<font size="2">(04:16:38 PM)</font><font size="3"> <b>Jartza:</b> try <a href="http://www.af">http://www.af</a></font><br>
+<font size="2">(04:17:20 PM)</font><font size="3"> <b>anuvrat:</b> peppe : just googled peppe.. that was the first result</font><br>
+<font size="2">(04:17:26 PM)</font><b><font size="3"> name is now known as __name__</font></b><font size="3"></font><br>
+<font size="2">(04:17:33 PM)</font><b><font size="3"> cyndis left the room (quit: Client Quit).</font></b><font size="3"></font><br>
+<font size="2">(04:17:56 PM)</font><b><font size="3"> Kypeli left the room (quit: Read error: Operation timed out).</font></b><font size="3"></font><br>
+<font size="2">(04:18:08 PM)</font><b><font size="3"> mnurmi [<i>~mnurmi@kapsi.fi</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(04:18:52 PM)</font><b><font size="3"> LUDO00011 left the room.</font></b><font size="3"></font><br>
+<font size="2">(04:19:28 PM)</font><b><font size="3"> DaZ left the room (quit: Remote host closed the connection).</font></b><font size="3"></font><br>
+<font size="2">(04:20:00 PM)</font><b><font size="3"> timoph|away left the room (quit: Ping timeout: 248 seconds).</font></b><font size="3"></font><br>
+<font size="2">(04:21:16 PM)</font><b><font size="3"> hhurtta [<i>~jsusi@kapsi.fi</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(04:21:26 PM)</font><b><font size="3"> timoph|away [<i>mjolk@irc.mustakaapu.org</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(04:21:45 PM)</font><b><font size="3"> sohail [<i>~Adium@unaffiliated/sohail</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(04:21:50 PM)</font><b><font size="3"> kylls [<i>~adorador@187.40.71.51</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(04:21:58 PM)</font><b><font size="3"> sugoi [<i>~ryan@c-76-23-5-2.hsd1.ut.comcast.net</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(04:22:44 PM)</font><b><font size="3"> mnurmi left the room (quit: Ping timeout: 265 seconds).</font></b><font size="3"></font><br>
+<font size="2">(04:22:51 PM)</font><b><font size="3"> anuvrat left the room (quit: Ping timeout: 260 seconds).</font></b><font size="3"></font><br>
+<font size="2">(04:23:11 PM)</font><b><font size="3"> dpb left the room (quit: Ping timeout: 248 seconds).</font></b><font size="3"></font><br>
+<font size="2">(04:23:58 PM)</font><b><font size="3"> ovi1 [<i>~ovi1@dhcp-83-219-96-96.customers.tvtnet.ch</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(04:24:03 PM)</font><b><font size="3"> ovi1 left the room (quit: Changing host).</font></b><font size="3"></font><br>
+<font size="2">(04:24:03 PM)</font><b><font size="3"> ovi1 [<i>~ovi1@unaffiliated/ovi1</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(04:24:26 PM)</font><b><font size="3"> abhinandan [<i>~abhi@220.227.170.227</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(04:24:32 PM)</font><b><font size="3"> Savago left the room (quit: Quit: Leaving).</font></b><font size="3"></font><br>
+<font size="2">(04:24:46 PM)</font><font size="3"> <b>abhinandan:</b> hi</font><br>
+<font size="2">(04:24:49 PM)</font><b><font size="3"> dpb [<i>dpb@kapsi.fi</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(04:24:49 PM)</font><b><font size="3"> dpb left the room (quit: Changing host).</font></b><font size="3"></font><br>
+<font size="2">(04:24:49 PM)</font><b><font size="3"> dpb [<i>dpb@unaffiliated/dpb</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(04:25:01 PM)</font><b><font size="3"> cyndis [<i>cyndis@lakka.kapsi.fi</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(04:25:20 PM)</font><b><font size="3"> jhunt left the room (quit: Ping timeout: 258 seconds).</font></b><font size="3"></font><br>
+<font size="2">(04:25:21 PM)</font><b><font size="3"> git__ [<i>~git_it@184-194-222-235.pools.spcsdns.net</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(04:25:27 PM)</font><b><font size="3"> djustice [<i>~user@75-136-155-060.dhcp.gnvl.sc.charter.com</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(04:25:32 PM)</font><b><font size="3"> promulo_ left the room (quit: Ping timeout: 240 seconds).</font></b><font size="3"></font><br>
+<font size="2">(04:25:52 PM)</font><b><font size="3"> timoph|away left the room (quit: Ping timeout: 248 seconds).</font></b><font size="3"></font><br>
+<font size="2">(04:26:21 PM)</font><b><font size="3"> timoph|away [<i>mjolk@irc.mustakaapu.org</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(04:26:32 PM)</font><font size="3"> <b>abhinandan:</b> i have to start with basics to qt</font><br>
+<font size="2">(04:26:39 PM)</font><font size="3"> <b>abhinandan:</b> plz suggest me some book</font><br>
+<font size="2">(04:26:56 PM)</font><b><font size="3"> Kypeli [<i>kypeli@kapsi.fi</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(04:26:59 PM)</font><font size="3"> <b>mrgenixus:</b> there's a green-bound book I love</font><br>
+<font size="2">(04:27:07 PM)</font><font size="3"> <b>mrgenixus:</b> it's basically a &quot;getting started&quot;</font><br>
+<font size="2">(04:27:08 PM)</font><b><font size="3"> git__ left the room (quit: Remote host closed the connection).</font></b><font size="3"></font><br>
+<font size="2">(04:27:29 PM)</font><b><font size="3"> anuvrat [<i>~anuvrat@59.161.96.141</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(04:27:37 PM)</font><b><font size="3"> mzanetti_ [<i>~mzanetti@92.117.244.112</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(04:27:40 PM)</font><b><font size="3"> sugoi left the room (quit: Quit: leaving).</font></b><font size="3"></font><br>
+<font size="2">(04:27:51 PM)</font><b><font size="3"> abhi [<i>~abhi@115.248.143.99</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(04:28:04 PM)</font><b><font size="3"> git__ [<i>~git_it@184-194-222-235.pools.spcsdns.net</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(04:28:59 PM)</font><b><font size="3"> mnurmi [<i>mnurmi@kapsi.fi</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(04:29:39 PM)</font><font size="3"> <b>abhi:</b> hi all</font><br>
+<font size="2">(04:30:35 PM)</font><font size="3"> <b>abhinandan:</b> thanks mrgenuxus:</font><br>
+<font size="2">(04:30:36 PM)</font><b><font size="3"> fredy left the room (quit: Read error: Connection reset by peer).</font></b><font size="3"></font><br>
+<font size="2">(04:31:21 PM)</font><b><font size="3"> DrIDK left the room (quit: Remote host closed the connection).</font></b><font size="3"></font><br>
+<font size="2">(04:31:58 PM)</font><b><font size="3"> anuvrat left the room (quit: Ping timeout: 252 seconds).</font></b><font size="3"></font><br>
+<font size="2">(04:31:59 PM)</font><b><font size="3"> anuvrat_ [<i>~anuvrat@115.117.141.133</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(04:32:17 PM)</font><b><font size="3"> anuvrat_ is now known as anuvrat</font></b><font size="3"></font><br>
+<font size="2">(04:33:22 PM)</font><b><font size="3"> kylls left the room (quit: Ping timeout: 265 seconds).</font></b><font size="3"></font><br>
+<font size="2">(04:34:22 PM)</font><b><font size="3"> peet left the room (quit: Quit: Leaving.).</font></b><font size="3"></font><br>
+<font size="2">(04:35:07 PM)</font><b><font size="3"> peet [<i>~peet@blk-138-44-93.eastlink.ca</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(04:35:40 PM)</font><b><font size="3"> git__ left the room (quit: Ping timeout: 258 seconds).</font></b><font size="3"></font><br>
+<font size="2">(04:36:41 PM)</font><b><font size="3"> tizbac left the room (quit: Read error: Connection reset by peer).</font></b><font size="3"></font><br>
+<font size="2">(04:38:49 PM)</font><b><font size="3"> Guest8408 [<i>~warirc@AC84D0AB.ipt.aol.com</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(04:38:50 PM)</font><font size="3"> <b>abhinandan:</b> exit</font><br>
+<font size="2">(04:39:03 PM)</font><font size="3"> <b>abhinandan:</b> :q</font><br>
+<font size="2">(04:39:25 PM)</font><b><font size="3"> abhinandan left the room (quit: Quit: Leaving).</font></b><font size="3"></font><br>
+<font size="2">(04:39:29 PM)</font><font size="3"> <b>crweb:</b> I have an odd problem.  In one program string.split(&quot;‖&quot;)  works, on the other it doesn't.</font><br>
+<font size="2">(04:39:36 PM)</font><font size="3"> <b>wbooze:</b> (Parent is Solid::Backends::Hal::HalDevice(0x829e6b0), parent's thread is QThread(0x8050230), current thread is ThreadWeaver::Thread(0x850e7f0)</font><br>
+<font size="2">(04:39:36 PM)</font><font size="3"> <b>wbooze:</b> krunner(19173): &quot;&quot;CurrencyIntroducedDate&quot; - conversion of &quot;&quot; to QDate failed&quot; &quot; (wrong format: expected 3 items, got 1)&quot;</font><br>
+<font size="2">(04:39:46 PM)</font><font size="3"> <b>wbooze:</b> someones leaking threads ?</font><br>
+<font size="2">(04:41:01 PM)</font><b><font size="3"> git__ [<i>~git_it@184-194-222-235.pools.spcsdns.net</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(04:41:52 PM)</font><b><font size="3"> TwoPixelGrid left the room (quit: Quit: Leaving).</font></b><font size="3"></font><br>
+<font size="2">(04:42:19 PM)</font><font size="3"> <b>anuvrat:</b> hey.. how do I create a waitForSignal() kind of func?? I mean like QAbstractSocket has waitForReadyRead() or waitForDisconnected()</font><br>
+<font size="2">(04:43:04 PM)</font><b><font size="3"> MaNI [<i>~malcolm@dsl-243-19-160.telkomadsl.co.za</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(04:43:14 PM)</font><b><font size="3"> MaNI left the room (quit: Read error: Connection reset by peer).</font></b><font size="3"></font><br>
+<font size="2">(04:43:37 PM)</font><b><font size="3"> flupke [<i>~flupke@AToulon-151-1-105-98.w86-200.abo.wanadoo.fr</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(04:43:42 PM)</font><font size="3"> <b>anuvrat:</b> :(</font><br>
+<font size="2">(04:44:06 PM)</font><b><font size="3"> fontknocker [<i>~adam@119.12.243.20</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(04:44:20 PM)</font><b><font size="3"> MaNI [<i>~malcolm@dsl-243-19-160.telkomadsl.co.za</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(04:45:37 PM)</font><font size="3"> <b>Xenakios:</b> a function to wait for a signal sounds like a really bad idea</font><br>
+<font size="2">(04:46:12 PM)</font><b><font size="3"> Torsten left the room (quit: Quit: Miranda IM! Smaller, Faster, Easier. <a href="http://miranda-im.org).">http://miranda-im.org).</a></font></b><font size="3"></font><br>
+<font size="2">(04:46:17 PM)</font><b><font size="3"> dispraekailo left the room (quit: Ping timeout: 276 seconds).</font></b><font size="3"></font><br>
+<font size="2">(04:46:21 PM)</font><b><font size="3"> angasule left the room (quit: Ping timeout: 265 seconds).</font></b><font size="3"></font><br>
+<font size="2">(04:46:37 PM)</font><b><font size="3"> Torsten [<i>~Miranda@f053192254.adsl.alicedsl.de</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(04:47:53 PM)</font><b><font size="3"> ukkopekka left the room (quit: Ping timeout: 240 seconds).</font></b><font size="3"></font><br>
+<font size="2">(04:48:30 PM)</font><b><font size="3"> cyndis left the room (quit: Quit: No Ping reply in 180 seconds.).</font></b><font size="3"></font><br>
+<font size="2">(04:50:22 PM)</font><b><font size="3"> promulo [<i>~promulo@187.114.209.57</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(04:50:43 PM)</font><b><font size="3"> c0dy [<i>~100001@pool-71-99-13-12.tampfl.dsl-w.verizon.net</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(04:50:46 PM)</font><b><font size="3"> wiglot left the room (quit: Read error: Connection reset by peer).</font></b><font size="3"></font><br>
+<font size="2">(04:50:49 PM)</font><b><font size="3"> wiglot_ [<i>~wagner@201.41.61.244</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(04:51:15 PM)</font><b><font size="3"> mnurmi left the room (quit: Ping timeout: 265 seconds).</font></b><font size="3"></font><br>
+<font size="2">(04:51:40 PM)</font><b><font size="3"> Torsten left the room (quit: Ping timeout: 240 seconds).</font></b><font size="3"></font><br>
+<font size="2">(04:53:33 PM)</font><b><font size="3"> Phopojijo [<i>~Phopojijo@bas4-kingston08-1242547951.dsl.bell.ca</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(04:53:44 PM)</font><font size="3"> <b>Phopojijo:</b> Hey</font><br>
+<font size="2">(04:56:16 PM)</font><b><font size="3"> Guest8408 left the room (quit: Quit: (wiRC v9.0) download it @ www.warIRC.com).</font></b><font size="3"></font><br>
+<font size="2">(04:56:21 PM)</font><b><font size="3"> abhi left the room (&quot;Leaving&quot;).</font></b><font size="3"></font><br>
+<font size="2">(04:56:28 PM)</font><b><font size="3"> mnurmi [<i>mnurmi@kapsi.fi</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(04:56:53 PM)</font><b><font size="3"> git__ left the room (quit: Quit: Leaving).</font></b><font size="3"></font><br>
+<font size="2">(04:57:11 PM)</font><font size="3"> <b>anuvrat:</b> Xenakios : so what would be appropriate?</font><br>
+<font size="2">(04:57:33 PM)</font><b><font size="3"> mzanetti_ left the room (quit: Ping timeout: 240 seconds).</font></b><font size="3"></font><br>
+<font size="2">(04:58:07 PM)</font><b><font size="3"> Arce__ left the room (quit: Read error: Connection reset by peer).</font></b><font size="3"></font><br>
+<font size="2">(04:58:24 PM)</font><b><font size="3"> timoph|away left the room (quit: Ping timeout: 248 seconds).</font></b><font size="3"></font><br>
+<font size="2">(04:59:37 PM)</font><b><font size="3"> catofzen [<i>~marvin@ip-69-27-56-221.slm.blueriver.net</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(04:59:58 PM)</font><font size="3"> <b>Phopojijo:</b> So.</font><br>
+<font size="2">(05:00:41 PM)</font><b><font size="3"> balor left the room (quit: Ping timeout: 240 seconds).</font></b><font size="3"></font><br>
+<font size="2">(05:00:55 PM)</font><b><font size="3"> dispraekailo [<i>~dispraeka@c-67-162-6-161.hsd1.il.comcast.net</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(05:01:57 PM)</font><b><font size="3"> ovi1 left the room (quit: Remote host closed the connection).</font></b><font size="3"></font><br>
+<font size="2">(05:02:08 PM)</font><b><font size="3"> dpb left the room (quit: Ping timeout: 248 seconds).</font></b><font size="3"></font><br>
+<font size="2">(05:02:21 PM)</font><b><font size="3"> xxcv [<i>~asdf@c122-106-162-239.carlnfd1.nsw.optusnet.com.au</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(05:02:37 PM)</font><font size="3"> <b>Xenakios:</b> well the idea is that classes emit the signals and other classes register to receive them, using the connect() call</font><br>
+<font size="2">(05:02:58 PM)</font><b><font size="3"> MaNI left the room (quit: Read error: Connection reset by peer).</font></b><font size="3"></font><br>
+<font size="2">(05:03:18 PM)</font><font size="3"> <b>Phopojijo:</b> Trying to make an IDE that is cross-platform and easily extensible. For the actual text input, it looks like using a webkit contenteditable page works best.</font><br>
+<font size="2">(05:03:20 PM)</font><b><font size="3"> dpb [<i>~dpb@kapsi.fi</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(05:03:20 PM)</font><b><font size="3"> dpb left the room (quit: Changing host).</font></b><font size="3"></font><br>
+<font size="2">(05:03:20 PM)</font><b><font size="3"> dpb [<i>~dpb@unaffiliated/dpb</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(05:03:21 PM)</font><b><font size="3"> hhurtta left the room (quit: Ping timeout: 260 seconds).</font></b><font size="3"></font><br>
+<font size="2">(05:03:30 PM)</font><font size="3"> <b>Xenakios:</b> sometimes it may be convenient to actually wait for a signal, but that should not be used too often</font><br>
+<font size="2">(05:03:37 PM)</font><b><font size="3"> ukkopekka [<i>ihaaaaaa@otitsun.oulu.fi</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(05:03:49 PM)</font><b><font size="3"> mck182 left the room (quit: Ping timeout: 260 seconds).</font></b><font size="3"></font><br>
+<font size="2">(05:04:16 PM)</font><b><font size="3"> hhurtta [<i>jsusi@kapsi.fi</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(05:04:36 PM)</font><font size="3"> <b>Phopojijo:</b> Seems relatively straight-forward to create the editor in Javascript -- specifically a table layout -- so I can hide and show rows individually</font><br>
+<font size="2">(05:04:45 PM)</font><font size="3"> <b>Phopojijo:</b> Am I walking off a cliff? :p</font><br>
+<font size="2">(05:04:46 PM)</font><b><font size="3"> timoph|away [<i>mjolk@irc.mustakaapu.org</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(05:04:51 PM)</font><font size="3"> <b>Phopojijo:</b> Or is that a good idea?</font><br>
+<font size="2">(05:05:39 PM)</font><b><font size="3"> symm-_ [<i>~symm_@host-static-92-114-207-80.moldtelecom.md</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(05:05:57 PM)</font><b><font size="3"> cyndis [<i>~quassel@lakka.kapsi.fi</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(05:06:00 PM)</font><font size="3"> <b>Phopojijo:</b> Also so I can have different even/odd backgrounds... so people can change formatting to highlight specific sections for easy scan-through (that would be preserved in cached HTML files unless they decide to recache)</font><br>
+<font size="2">(05:06:06 PM)</font><font size="3"> <b>Phopojijo:</b> ?</font><br>
+<font size="2">(05:06:11 PM)</font><font size="3"> <b>Phopojijo:</b> Also so I can have different even/odd backgrounds... so people can change formatting to highlight specific sections for easy scan-through (that would be preserved in cached HTML files unless they decide to recache)</font><br>
+<font size="2">(05:06:17 PM)</font><b><font size="3"> symm- left the room (quit: Ping timeout: 240 seconds).</font></b><font size="3"></font><br>
+<font size="2">(05:06:20 PM)</font><font size="3"> <b>Phopojijo:</b> Wow that was weird, lost 2 lines of text in IRC</font><br>
+<font size="2">(05:06:24 PM)</font><font size="3"> <b>Phopojijo:</b> Just white space</font><br>
+<font size="2">(05:06:54 PM)</font><font size="3"> <b>Phopojijo:</b> Erg, never mind -- just popped in... stupid Xchat</font><br>
+<font size="2">(05:07:07 PM)</font><b><font size="3"> Guest81433 [<i>~malcolm@dsl-243-19-160.telkomadsl.co.za</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(05:07:14 PM)</font><font size="3"> <b>anuvrat:</b> XenaKios I will emit a signal .. but If  I do not have to do anything in the mean time .. what do I do? insead of waiting??</font><br>
+<font size="2">(05:07:28 PM)</font><b><font size="3"> c0dy left the room (quit: Quit: leaving).</font></b><font size="3"></font><br>
+<font size="2">(05:07:38 PM)</font><font size="3"> <b>Phopojijo:</b> anuvrat -- Uhm... if you're waiting for a signal... what else CAN you do?</font><br>
+<font size="2">(05:07:58 PM)</font><font size="3"> <b>anuvrat:</b> so how do I wait for a signal??</font><br>
+<font size="2">(05:07:59 PM)</font><b><font size="3"> PasNox left the room (quit: Read error: Connection reset by peer).</font></b><font size="3"></font><br>
+<font size="2">(05:08:02 PM)</font><font size="3"> <b>Phopojijo:</b> anuvrat -- No sense in letting the CPU do random cycles when you can let the OS send it off on another task?</font><br>
+<font size="2">(05:08:11 PM)</font><font size="3"> <b>anuvrat:</b> while(1) .. the traditional one ??</font><br>
+<font size="2">(05:08:11 PM)</font><font size="3"> <b>rohanpm:</b> anuvrat: you return control to the event loop</font><br>
+<font size="2">(05:08:18 PM)</font><font size="3"> <b>Phopojijo:</b> ((Just piecing together what you're saying from when I joined, didn't catch the start of the conversation))</font><br>
+<font size="2">(05:08:24 PM)</font><font size="3"> <b>rohanpm:</b> anuvrat: the event loop knows how to wait for signals/events</font><br>
+<font size="2">(05:08:28 PM)</font><b><font size="3"> c0dy [<i>~100001@pool-71-99-13-12.tampfl.dsl-w.verizon.net</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(05:08:31 PM)</font><font size="3"> <b>rohanpm:</b> that's its job, in fact</font><br>
+<font size="2">(05:08:53 PM)</font><b><font size="3"> astropirate [<i>~astropira@pool-71-178-10-61.washdc.fios.verizon.net</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(05:09:04 PM)</font><b><font size="3"> dpb left the room (quit: Ping timeout: 248 seconds).</font></b><font size="3"></font><br>
+<font size="2">(05:09:32 PM)</font><font size="3"> <b>anuvrat:</b> hmm.... I should perhaps rephrase what I want to do ... I am sure I will find a way different from waiting for an event loop</font><br>
+<font size="2">(05:09:59 PM)</font><font size="3"> <b>astropirate:</b> Can some one please show me an example code of how one would be able to read a textfile on the web using QHttp? like <a href="http://foo.bar/test.txt">http://foo.bar/test.txt</a></font><br>
+<font size="2">(05:10:06 PM)</font><b><font size="3"> Guest81433 left the room (quit: Client Quit).</font></b><font size="3"></font><br>
+<font size="2">(05:10:15 PM)</font><b><font size="3"> DaZ [<i>~drevnikoc@87-205-167-21.adsl.inetia.pl</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(05:11:10 PM)</font><font size="3"> <b>rohanpm:</b> anuvrat: waitForSignal kind of function is usually a bad idea; maybe it's OK for testing, but you shouldn't do it for code that's supposed to be reusable</font><br>
+<font size="2">(05:11:10 PM)</font><b><font size="3"> hhurtta left the room (quit: Ping timeout: 240 seconds).</font></b><font size="3"></font><br>
+<font size="2">(05:11:18 PM)</font><font size="3"> <b>rohanpm:</b> it makes code unpredictable</font><br>
+<font size="2">(05:12:16 PM)</font><b><font size="3"> grzywacz left the room (quit: Remote host closed the connection).</font></b><font size="3"></font><br>
+<font size="2">(05:12:18 PM)</font><font size="3"> <b>anuvrat:</b> hmm.. thanks for the tip</font><br>
+<font size="2">(05:12:39 PM)</font><font size="3"> <b>anuvrat:</b> that kind of approach will make it procedural .. instead of OOPs ...</font><br>
+<font size="2">(05:12:47 PM)</font><b><font size="3"> hhurtta [<i>jsusi@kapsi.fi</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(05:14:07 PM)</font><b><font size="3"> dpb [<i>dpb@kapsi.fi</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(05:14:07 PM)</font><b><font size="3"> dpb left the room (quit: Changing host).</font></b><font size="3"></font><br>
+<font size="2">(05:14:07 PM)</font><b><font size="3"> dpb [<i>dpb@unaffiliated/dpb</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(05:16:10 PM)</font><font size="3"> <b>Xenakios:</b> well procedural versus event driven, that's more like the distinction</font><br>
+<font size="2">(05:16:42 PM)</font><b><font size="3"> Loffe left the room (quit: Ping timeout: 258 seconds).</font></b><font size="3"></font><br>
+<font size="2">(05:17:21 PM)</font><b><font size="3"> hhurtta left the room (quit: Ping timeout: 265 seconds).</font></b><font size="3"></font><br>
+<font size="2">(05:18:27 PM)</font><font size="3"> <b>rohanpm:</b> waitForSignal has a problem</font><br>
+<font size="2">(05:18:29 PM)</font><b><font size="3"> hhurtta [<i>jsusi@kapsi.fi</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(05:18:35 PM)</font><font size="3"> <b>Phopojijo:</b> astropirate -- Haven't done QHTTP yet -- but it looks like the class reference is pretty straight-forward.</font><br>
+<font size="2">(05:18:40 PM)</font><font size="3"> <b>rohanpm:</b> if a nested event loop happens during the wait, then waitForSignal can't return until that nested loop completes</font><br>
+<font size="2">(05:19:10 PM)</font><font size="3"> <b>rohanpm:</b> e.g. if you do waitForSignal on some network action, in a GUI app, and someone opens a modal dialog in the meantime, your waitForSignal won't return until the user closes the dialog</font><br>
+<font size="2">(05:19:22 PM)</font><font size="3"> <b>w00t_:</b> (which is very bad)</font><br>
+<font size="2">(05:19:31 PM)</font><font size="3"> <b>Phopojijo:</b> astropirate -- Did you try using the code from its detailed description?</font><br>
+<font size="2">(05:19:43 PM)</font><font size="3"> <b>Phopojijo:</b> <a href="http://doc.trolltech.com/4.6/qhttp.html#details">http://doc.trolltech.com/4.6/qhttp.html#details</a></font><br>
+<font size="2">(05:20:40 PM)</font><font size="3"> <b>w00t_:</b> rohanpm: I didn't even know there was a waitForSignal, useful to know</font><br>
+<font size="2">(05:20:59 PM)</font><font size="3"> <b>w00t_:</b> the places I've needed it, I rolled my own with QSignalSpy and qWait</font><br>
+<font size="2">(05:21:02 PM)</font><font size="3"> <b>peppe:</b> astropirate: don't use QHttp for new code</font><br>
+<font size="2">(05:21:16 PM)</font><font size="3"> <b>astropirate:</b> o_O</font><br>
+<font size="2">(05:21:20 PM)</font><font size="3"> <b>astropirate:</b> then what shall i use</font><br>
+<font size="2">(05:21:26 PM)</font><font size="3"> <b>peppe:</b> read QHttp docs?</font><br>
+<font size="2">(05:21:28 PM)</font><font size="3"> <b>Phopojijo:</b> astropirate -- What are you trying to do?</font><br>
+<font size="2">(05:21:30 PM)</font><font size="3"> <b>rohanpm:</b> w00t_: there's not (in Qt) AFAIK, but it's been implemented many times and it basically has to work the way I described</font><br>
+<font size="2">(05:21:40 PM)</font><font size="3"> <b>Phopojijo:</b> astropirate ((QHttp is deprecated))</font><br>
+<font size="2">(05:21:41 PM)</font><font size="3"> <b>astropirate:</b> i'm trying to download a configuration file</font><br>
+<font size="2">(05:22:07 PM)</font><font size="3"> <b>astropirate:</b> that updates and the program checks for it periodicly</font><br>
+<font size="2">(05:22:08 PM)</font><font size="3"> <b>w00t_:</b> rohanpm: oh, my bad, it's qtextended docs I'm looking at</font><br>
+<font size="2">(05:22:16 PM)</font><font size="3"> <b>Phopojijo:</b> astropirate -- Okay</font><br>
+<font size="2">(05:22:23 PM)</font><font size="3"> <b>w00t_:</b> QtUiTest::waitForSignal</font><br>
+<font size="2">(05:22:39 PM)</font><font size="3"> <b>rohanpm:</b> w00t_: that uses coroutines and is actually safe for the issue I described :-)</font><br>
+<font size="2">(05:22:47 PM)</font><font size="3"> <b>peppe:</b> running an inner event loop sounds so wrong...</font><br>
+<font size="2">(05:22:49 PM)</font><font size="3"> <b>rohanpm:</b> at least on the platforms where coroutines were implemented</font><br>
+<font size="2">(05:23:05 PM)</font><font size="3"> <b>w00t_:</b> peppe: there are cases where it's required, believe it or not</font><br>
+<font size="2">(05:23:15 PM)</font><b><font size="3"> spinningcompass [<i>~hugo@ppp-99-14-89-162.dsl.frs2ca.sbcglobal.net</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(05:23:16 PM)</font><font size="3"> <b>w00t_:</b> (I thought the same thing until I had one described to me)</font><br>
+<font size="2">(05:24:53 PM)</font><font size="3"> <b>astropirate:</b> haha i can't believe i missed this: &quot;This class is obsolete. It is provided to keep old source code working. We strongly advise against using it in new code.&quot;</font><br>
+<font size="2">(05:26:12 PM)</font><font size="3"> <b>Phopojijo:</b> astropirate- Eh it's fine</font><br>
+<font size="2">(05:28:02 PM)</font><font size="3"> <b>w00t_:</b> peppe: also, QDialog::exec() for instance.. invokes another event loop</font><br>
+<font size="2">(05:28:18 PM)</font><font size="3"> <b>Phopojijo:</b> astropirate- Not sure</font><br>
+<font size="2">(05:28:51 PM)</font><font size="3"> <b>astropirate:</b> Phopojijo: about what?  how to do it?</font><br>
+<font size="2">(05:28:59 PM)</font><font size="3"> <b>Phopojijo:</b> astropirate- Yeah, tried googling a bit</font><br>
+<font size="2">(05:29:06 PM)</font><font size="3"> <b>astropirate:</b> same here</font><br>
+<font size="2">(05:29:10 PM)</font><font size="3"> <b>astropirate:</b> it's a baren subject</font><br>
+<font size="2">(05:29:13 PM)</font><font size="3"> <b>astropirate:</b> very surprising</font><br>
+<font size="2">(05:29:18 PM)</font><font size="3"> <b>Phopojijo:</b> Well not really</font><br>
+<font size="2">(05:29:22 PM)</font><font size="3"> <b>astropirate:</b> o_O</font><br>
+<font size="2">(05:29:30 PM)</font><font size="3"> <b>Phopojijo:</b> There's some chitchat about how to qFTP the file</font><br>
+<font size="2">(05:31:36 PM)</font><font size="3"> <b>astropirate:</b> i found something very usefull <a href="http://www.informit.com/articles/article.aspx?p=1405552">http://www.informit.com/articles/article.aspx?p=1405552</a></font><br>
+<font size="2">(05:31:39 PM)</font><font size="3"> <b>astropirate:</b> thanks alot!</font><br>
+<font size="2">(05:32:03 PM)</font><font size="3"> <b>Phopojijo:</b> astropirate -- Also check through QT's network examples folder</font><br>
+<font size="2">(05:32:12 PM)</font><font size="3"> <b>astropirate:</b> okay</font><br>
+<font size="2">(05:32:22 PM)</font><font size="3"> <b>Phopojijo:</b> In your QT install folder -- /qt/examples/network</font><br>
+<font size="2">(05:32:36 PM)</font><font size="3"> <b>peppe:</b> w00t_: how about using QDialog::open instead?</font><br>
+<font size="2">(05:32:44 PM)</font><b><font size="3"> vHanda left the room (quit: Remote host closed the connection).</font></b><font size="3"></font><br>
+<font size="2">(05:33:08 PM)</font><b><font size="3"> shartte left the room (quit: Quit: Leaving.).</font></b><font size="3"></font><br>
+<font size="2">(05:33:10 PM)</font><font size="3"> <b>w00t_:</b> peppe: makes writing things like save file dialogs a lot more complicated, and is also ..not modal</font><br>
+<font size="2">(05:33:22 PM)</font><font size="3"> <b>peppe:</b> open is windowmodal</font><br>
+<font size="2">(05:33:22 PM)</font><font size="3"> <b>special:</b> all you have to do is give a parent and call setModal</font><br>
+<font size="2">(05:33:33 PM)</font><font size="3"> <b>w00t_:</b> first point stands</font><br>
+<font size="2">(05:33:58 PM)</font><font size="3"> <b>Phopojijo:</b> astropirate -- Actually look up the HTML example in the network example folder</font><br>
+<font size="2">(05:34:04 PM)</font><font size="3"> <b>Phopojijo:</b> astropirate -- Seems to be similar to what you want</font><br>
+<font size="2">(05:34:28 PM)</font><font size="3"> <b>astropirate:</b> ok</font><br>
+<font size="2">(05:34:42 PM)</font><font size="3"> <b>peppe:</b> w00t_: &quot;save file dialogs&quot; as in QFileDialog or things like &quot;document modified, save changes yes/no/...&quot;?</font><br>
+<font size="2">(05:35:04 PM)</font><font size="3"> <b>astropirate:</b> actually, Phopojijo, they use webkit</font><br>
+<font size="2">(05:35:06 PM)</font><font size="3"> <b>w00t_:</b> QFileDialog was what I was thinking about in particular, there are other examples</font><br>
+<font size="2">(05:35:30 PM)</font><font size="3"> <b>special:</b> yeah, it's convenient in that case</font><br>
+<font size="2">(05:35:34 PM)</font><font size="3"> <b>special:</b> should be avoided when not necessary</font><br>
+<font size="2">(05:35:39 PM)</font><font size="3"> <b>w00t_:</b> (and no, i'm not saying it's _impossible_ to do without an event loop, but it is _convenient_)</font><br>
+<font size="2">(05:36:09 PM)</font><font size="3"> <b>w00t_:</b> the case I mentioned that required one was in a library providing a synchronous API</font><br>
+<font size="2">(05:36:20 PM)</font><font size="3"> <b>special:</b> through a really strange set of circumstances, I once had an infinite loop of dialogs</font><br>
+<font size="2">(05:36:28 PM)</font><font size="3"> <b>w00t_:</b> the author of the library wanted to guarantee that the caller didn't have any signals or slots invoked while in a synchronous call</font><br>
+<font size="2">(05:36:45 PM)</font><font size="3"> <b>special:</b> kept recursing to open new ones :&lt;</font><br>
+<font size="2">(05:37:00 PM)</font><font size="3"> <b>w00t_:</b> so, new event loop on a thread, and then wait on that thread to complete</font><br>
+<font size="2">(05:37:44 PM)</font><font size="3"> <b>spinningcompass:</b> Is there a way to hide the &quot;status tip&quot; line that's at the buttom of a window?</font><br>
+<font size="2">(05:37:59 PM)</font><b><font size="3"> dvx left the room (quit: Quit: dvx).</font></b><font size="3"></font><br>
+<font size="2">(05:37:59 PM)</font><font size="3"> <b>peppe:</b> what scares me about nested event loops is that if your application is complex enough you can accidentally run many times on the same parts of code (which wasn't thought to be reentrant)</font><br>
+<font size="2">(05:38:13 PM)</font><font size="3"> <b>w00t_:</b> spinningcompass: if you're in designer, delete the widget from your QMainWindow</font><br>
+<font size="2">(05:38:21 PM)</font><font size="3"> <b>w00t_:</b> peppe: obviously</font><br>
+<font size="2">(05:38:46 PM)</font><font size="3"> <b>peppe:</b> w00t_: well, I spent days debugging that and I don't want to do it again :-)</font><br>
+<font size="2">(05:38:50 PM)</font><font size="3"> <b>w00t_:</b> there's no implication that it's safe or nice design, just that it exists and must be dealt with</font><br>
+<font size="2">(05:38:52 PM)</font><font size="3"> <b>astropirate:</b> spinningcompass, are you using the designer?</font><br>
+<font size="2">(05:39:47 PM)</font><font size="3"> <b>spinningcompass:</b> astropirate, w00t_: Yes, using designer; statusTip is part of QMainWindow; looking for way to remove the widget (subwidget?), not merely blank the text; will continue to poke it with a stick :)</font><br>
+<font size="2">(05:39:51 PM)</font><b><font size="3"> Rutix left the room (quit: ).</font></b><font size="3"></font><br>
+<font size="2">(05:40:22 PM)</font><font size="3"> <b>w00t_:</b> spinningcompass: select it on the list of widgets on the right, hit delete button, and be happy</font><br>
+<font size="2">(05:40:24 PM)</font><font size="3"> <b>astropirate:</b> spinningcompass, it should be listed on the right hand site as statusbar</font><br>
+<font size="2">(05:40:34 PM)</font><font size="3"> <b>astropirate:</b> what w00t_ said</font><br>
+<font size="2">(05:40:37 PM)</font><font size="3"> <b>astropirate:</b> :-)</font><br>
+<font size="2">(05:40:48 PM)</font><b><font size="3"> szagul left the room (quit: Remote host closed the connection).</font></b><font size="3"></font><br>
+<font size="2">(05:42:53 PM)</font><b><font size="3"> peet left the room (quit: Quit: Leaving.).</font></b><font size="3"></font><br>
+<font size="2">(05:43:22 PM)</font><b><font size="3"> Skwint left the room (quit: Read error: Connection reset by peer).</font></b><font size="3"></font><br>
+<font size="2">(05:43:37 PM)</font><font size="3"> <b>spinningcompass:</b> The Designer was being awkward, so I used wnd.setStatusBar(None) instead. Thanks for pointing me in the right direction, w00t_ and astropirate</font><br>
+<font size="2">(05:43:37 PM)</font><b><font size="3"> peet [<i>~peet@blk-138-44-93.eastlink.ca</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(05:51:52 PM)</font><b><font size="3"> yoann21 left the room (quit: Read error: Connection reset by peer).</font></b><font size="3"></font><br>
+<font size="2">(05:52:50 PM)</font><b><font size="3"> wiglot_ is now known as wiglot</font></b><font size="3"></font><br>
+<font size="2">(05:55:03 PM)</font><font size="3"> <b>djustice:</b> does QString(&quot;foo&quot;).split(&quot;/&quot;).last(); fail? or does it give me 'foo'?</font><br>
+<font size="2">(05:55:18 PM)</font><font size="3"> <b>djustice:</b> im in a rush. i wouldnt ask. but recompiling would take too long..</font><br>
+<font size="2">(05:57:08 PM)</font><font size="3"> <b>ahf:</b> iirc, QList&lt;&gt;::last() requires that the list isn't empty.</font><br>
+<font size="2">(05:57:30 PM)</font><font size="3"> <b>djustice:</b> ahf: ah. thanks. :)</font><br>
+<font size="2">(05:57:48 PM)</font><font size="3"> <b>ahf:</b> it should work, but you can easily check with isEmpty()</font><br>
+<font size="2">(05:57:53 PM)</font><b><font size="3"> xxcv left the room (quit: Ping timeout: 265 seconds).</font></b><font size="3"></font><br>
+<font size="2">(05:58:14 PM)</font><font size="3"> <b>djustice:</b> yup. or prepend a '/'.</font><br>
+<font size="2">(05:58:22 PM)</font><font size="3"> <b>ahf:</b> icky!</font><br>
+<font size="2">(05:58:25 PM)</font><font size="3"> <b>ahf:</b> :-)</font><br>
+<font size="2">(06:00:17 PM)</font><b><font size="3"> mgottschlag left the room (quit: Ping timeout: 240 seconds).</font></b><font size="3"></font><br>
+<font size="2">(06:01:20 PM)</font><b><font size="3"> lbt left the room (quit: Read error: Connection reset by peer).</font></b><font size="3"></font><br>
+<font size="2">(06:02:44 PM)</font><b><font size="3"> b4d0n3 [<i>~b4d0n3@CPE-121-215-241-179.static.qld.bigpond.net.au</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(06:04:45 PM)</font><b><font size="3"> b4d0n3 left the room (quit: Remote host closed the connection).</font></b><font size="3"></font><br>
+<font size="2">(06:06:55 PM)</font><b><font size="3"> djustice left the room (quit: Ping timeout: 260 seconds).</font></b><font size="3"></font><br>
+<font size="2">(06:08:16 PM)</font><b><font size="3"> rulz left the room (quit: Ping timeout: 248 seconds).</font></b><font size="3"></font><br>
+<font size="2">(06:12:17 PM)</font><b><font size="3"> Part` [<i>part@archlinux/trusteduser/Part</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(06:12:20 PM)</font><font size="3"> <b>Part`:</b> Helo</font><br>
+<font size="2">(06:16:26 PM)</font><b><font size="3"> Baxnie left the room (quit: Read error: Connection reset by peer).</font></b><font size="3"></font><br>
+<font size="2">(06:16:45 PM)</font><b><font size="3"> Baxnie [<i>~henrique@187.105.12.113</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(06:19:41 PM)</font><b><font size="3"> Willy left the room (quit: Quit: Leaving - Living in the future kills the present.).</font></b><font size="3"></font><br>
+<font size="2">(06:19:59 PM)</font><b><font size="3"> JEEB left the room (quit: Quit: ちょろんと).</font></b><font size="3"></font><br>
+<font size="2">(06:20:19 PM)</font><b><font size="3"> vaiursch left the room (quit: Remote host closed the connection).</font></b><font size="3"></font><br>
+<font size="2">(06:20:48 PM)</font><b><font size="3"> JEEB [<i>~kanakana@unaffiliated/jeeb</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(06:21:02 PM)</font><b><font size="3"> NBG left the room (quit: Remote host closed the connection).</font></b><font size="3"></font><br>
+<font size="2">(06:25:16 PM)</font><b><font size="3"> peppe left the room (quit: Quit: nite).</font></b><font size="3"></font><br>
+<font size="2">(06:26:11 PM)</font><b><font size="3"> eMyller [<i>~quassel@li73-216.members.linode.com</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(06:26:33 PM)</font><b><font size="3"> peet left the room (quit: Quit: Leaving.).</font></b><font size="3"></font><br>
+<font size="2">(06:27:18 PM)</font><b><font size="3"> peet [<i>~peet@blk-138-44-93.eastlink.ca</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(06:32:34 PM)</font><b><font size="3"> rizzuh_laptop left the room (quit: Quit: What? WAIT noooo don't pull that pl...).</font></b><font size="3"></font><br>
+<font size="2">(06:34:56 PM)</font><b><font size="3"> blight_ left the room (quit: Remote host closed the connection).</font></b><font size="3"></font><br>
+<font size="2">(06:35:13 PM)</font><b><font size="3"> leandroal left the room (quit: Quit: Saindo).</font></b><font size="3"></font><br>
+<font size="2">(06:39:56 PM)</font><b><font size="3"> astropirate left the room (quit: Quit: Leaving).</font></b><font size="3"></font><br>
+<font size="2">(06:41:41 PM)</font><b><font size="3"> Rangar [<i>~Dave@203-118-170-104.adsl.ihug.co.nz</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(06:43:02 PM)</font><b><font size="3"> rulz [<i>~rulz@220-244-174-13.static.tpgi.com.au</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(06:43:09 PM)</font><b><font size="3"> anuvrat left the room (quit: Ping timeout: 240 seconds).</font></b><font size="3"></font><br>
+<font size="2">(06:43:46 PM)</font><b><font size="3"> faichele [<i>~faichele@p508145DF.dip.t-dialin.net</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(06:45:29 PM)</font><b><font size="3"> kylls [<i>~adorador@187.40.71.51</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(06:46:47 PM)</font><b><font size="3"> faichele` left the room (quit: Ping timeout: 258 seconds).</font></b><font size="3"></font><br>
+<font size="2">(06:51:31 PM)</font><font size="3"> <b>eMyller:</b> Hey. I am [almost] completely new to desktop programming and I need to create something like Python's Mechanize (a browser simulator) but I need to run the JavaScript on the pages.</font><br>
+<font size="2">(06:51:36 PM)</font><font size="3"> <b>eMyller:</b> I already wrote a solution, but it takes me one QApplication for each request</font><br>
+<font size="2">(06:51:41 PM)</font><font size="3"> <b>eMyller:</b> How can I reuse the QApplication main event loop in order to set new urls to an existent QWebPage instance instead of creating a new QApp then QWebPage?</font><br>
+<font size="2">(06:51:54 PM)</font><b><font size="3"> xxcv [<i>~asdf@c122-106-162-239.carlnfd1.nsw.optusnet.com.au</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(06:52:08 PM)</font><font size="3"> <b>Xenakios:</b> several QApps sounds extremely odd</font><br>
+<font size="2">(06:52:23 PM)</font><font size="3"> <b>eMyller:</b> surely. i doesn't even work.</font><br>
+<font size="2">(06:53:18 PM)</font><font size="3"> <b>eMyller:</b> the second call makes my application get stuck, since a process can take only one QApplication instance.</font><br>
+<font size="2">(06:53:31 PM)</font><b><font size="3"> SlashLife [<i>~slashlife@unaffiliated/slashlife</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(06:54:31 PM)</font><font size="3"> <b>eMyller:</b> I am willing to create something like this: b = new Browser(); b.load(url1, callback1); b.load(url2, callback2);</font><br>
+<font size="2">(06:56:24 PM)</font><font size="3"> <b>msimurin:</b> how can i define a dir to use it like this - $$[QT_INSTALL_EXAMPLES] in .pro file</font><br>
+<font size="2">(06:57:06 PM)</font><b><font size="3"> praveenkumar [<i>~daredevil@210.212.5.84</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(06:58:54 PM)</font><b><font size="3"> osfd left the room (quit: Remote host closed the connection).</font></b><font size="3"></font><br>
+<font size="2">(06:59:03 PM)</font><b><font size="3"> kyxzme [<i>~kyxzme@93-42-4-253.ip84.fastwebnet.it</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(07:00:23 PM)</font><b><font size="3"> bedahr left the room (quit: Read error: Operation timed out).</font></b><font size="3"></font><br>
+<font size="2">(07:01:23 PM)</font><b><font size="3"> Laserbeak43 [<i>~Laserbeak@c-68-50-244-35.hsd1.md.comcast.net</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(07:04:21 PM)</font><b><font size="3"> DesertZarzamora left the room (quit: Remote host closed the connection).</font></b><font size="3"></font><br>
+<font size="2">(07:09:34 PM)</font><b><font size="3"> vinny left the room (quit: Remote host closed the connection).</font></b><font size="3"></font><br>
+<font size="2">(07:22:53 PM)</font><b><font size="3"> mrmonday [<i>~robert@tangocms/developer/robert</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(07:23:35 PM)</font><b><font size="3"> praveenkumar left the room (quit: Ping timeout: 252 seconds).</font></b><font size="3"></font><br>
+<font size="2">(07:23:50 PM)</font><font size="3"> <b>mrmonday:</b> Is there a widget to allow a file to be chosen (eg a text input, but a file has to be chosen, it can't be anything else), or do I have to make one myself?</font><br>
+<font size="2">(07:25:50 PM)</font><b><font size="3"> praveenkumar [<i>~daredevil@210.212.5.84</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(07:28:26 PM)</font><b><font size="3"> x29a left the room (quit: Read error: Connection reset by peer).</font></b><font size="3"></font><br>
+<font size="2">(07:29:09 PM)</font><b><font size="3"> x29a [<i>~x29a@unaffiliated/x29a</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(07:31:05 PM)</font><font size="3"> <b>special:</b> mrmonday: is QFileDialog what you want?</font><br>
+<font size="2">(07:33:54 PM)</font><font size="3"> <b>mrmonday:</b> special: that allows for the file to be chosen, what I want is something like QLineEdit but when you click on it it shows a QFileDialog to chose a file with (I could implement this myself, I was wondering if there's already a way to do it though)</font><br>
+<font size="2">(07:34:40 PM)</font><font size="3"> <b>special:</b> there isn't</font><br>
+<font size="2">(07:34:51 PM)</font><font size="3"> <b>mrmonday:</b> ok, I'll do it myself then, cheers</font><br>
+<font size="2">(07:36:50 PM)</font><font size="3"> <b>Xenakios:</b> hmm a line edit that triggers a file dialog sounds like annoying interface design</font><br>
+<font size="2">(07:38:08 PM)</font><font size="3"> <b>mrmonday:</b> how do I set the default item for a QComboBox?</font><br>
+<font size="2">(07:39:20 PM)</font><font size="3"> <b>mrmonday:</b> Xenakios: tell that to pretty much every web browser I've used :&gt; (I'm open to suggestions for nicer ways to do this :))</font><br>
+<font size="2">(07:39:51 PM)</font><font size="3"> <b>Xenakios:</b> weird...i've never seen it done exactly like that in any browser, or any app</font><br>
+<font size="2">(07:40:03 PM)</font><font size="3"> <b>Xenakios:</b> or perhaps i just have never clicked on the line edit lol</font><br>
+<font size="2">(07:40:23 PM)</font><font size="3"> <b>Xenakios:</b> how it's usually been done is that there's a button next to the line edit that opens the dialog</font><br>
+<font size="2">(07:40:25 PM)</font><font size="3"> <b>mrmonday:</b> hehe, most people just click on the browse button next to it :)</font><br>
+<font size="2">(07:40:37 PM)</font><font size="3"> <b>mrmonday:</b> if you click in the line edit it'll also open it though</font><br>
+<font size="2">(07:40:42 PM)</font><font size="3"> <b>Xenakios:</b> really? lol</font><br>
+<font size="2">(07:40:43 PM)</font><font size="3"> <b>Xenakios:</b> ok</font><br>
+<font size="2">(07:40:45 PM)</font><font size="3"> <b>Xenakios:</b> if you say so</font><br>
+<font size="2">(07:41:04 PM)</font><b><font size="3"> xxcv left the room (quit: Ping timeout: 248 seconds).</font></b><font size="3"></font><br>
+<font size="2">(07:42:21 PM)</font><font size="3"> <b>Jucato:</b> Xenakios: that's the (imho annoying) default behavior of Firefox on Linux. can't recall if other GTK+ apps do the same</font><br>
+<font size="2">(07:42:41 PM)</font><font size="3"> <b>mrmonday:</b> hmm, seems chrome doesn't even have the input box, it has a button with &quot;No file chosen&quot; as a label next to it</font><br>
+<font size="2">(07:42:44 PM)</font><b><font size="3"> peet1 [<i>~peet@blk-138-44-93.eastlink.ca</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(07:42:59 PM)</font><font size="3"> <b>mrmonday:</b> I prefer that actually, I'll do that</font><br>
+<font size="2">(07:43:19 PM)</font><b><font size="3"> peet left the room (quit: Ping timeout: 265 seconds).</font></b><font size="3"></font><br>
+<font size="2">(07:43:45 PM)</font><b><font size="3"> peet1 left the room (quit: Client Quit).</font></b><font size="3"></font><br>
+<font size="2">(07:43:48 PM)</font><font size="3"> <b>mrmonday:</b> gotta say, having an actual ui designer is a godsend when you're used to writing the code to to it by hand for it :3</font><br>
+<font size="2">(07:44:30 PM)</font><b><font size="3"> peet [<i>~peet@blk-138-44-93.eastlink.ca</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(07:44:59 PM)</font><b><font size="3"> hunger_ [<i>~quassel@kde/developer/hunger</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(07:45:03 PM)</font><font size="3"> <b>Jucato:</b> does anyone know if there are downloadable version of the talks from Qt Dev Days 2009 (http://qt.nokia.com/developer/learning/elearning)? I'd like to watch them offline</font><br>
+<font size="2">(07:45:23 PM)</font><font size="3"> <b>mrmonday:</b> that looks far nicer o/</font><br>
+<font size="2">(07:45:32 PM)</font><b><font size="3"> ahigerd [<i>~ahigerd@libqxt/developer/ahigerd</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(07:45:32 PM)</font><b><font size="3"> mode (+v ahigerd) by ChanServ</font></b><font size="3"></font><br>
+<font size="2">(07:45:41 PM)</font><font size="3"> <b>ahigerd:</b> Non-Qt question but you guys are nicer than most Linux support channels :P</font><br>
+<font size="2">(07:45:46 PM)</font><b><font size="3"> DoctorFender1031 is now known as DeFender|Sleep</font></b><font size="3"></font><br>
+<font size="2">(07:45:49 PM)</font><font size="3"> <b>ahigerd:</b> Anyone know why /bin/login would deny root logins?</font><br>
+<font size="2">(07:46:38 PM)</font><font size="3"> <b>***special</b> bans ahigerd</font><br>
+<font size="2">(07:46:41 PM)</font><font size="3"> <b>ahigerd:</b> ;_;</font><br>
+<font size="2">(07:46:47 PM)</font><font size="3"> <b>ahigerd:</b> meano</font><br>
+<font size="2">(07:46:48 PM)</font><b><font size="3"> allquixotic left the room (&quot;Farewell!&quot;).</font></b><font size="3"></font><br>
+<font size="2">(07:46:50 PM)</font><b><font size="3"> Appleman1234 [<i>~Appleman1@w-a141-35.eduroam.uq.edu.au</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(07:46:57 PM)</font><b><font size="3"> Teminian_Robin [<i>~ShinYoung@121.137.87.15</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(07:46:59 PM)</font><font size="3"> <b>Xenakios:</b> perhaps root isn't the...the root of all evils?</font><br>
+<font size="2">(07:47:10 PM)</font><font size="3"> <b>ahigerd:</b> You forgot your sunglasses.</font><br>
+<font size="2">(07:47:12 PM)</font><font size="3"> <b>Xenakios:</b> there's something above root lol</font><br>
+<font size="2">(07:47:54 PM)</font><b><font size="3"> fontknocker left the room (quit: Read error: Connection reset by peer).</font></b><font size="3"></font><br>
+<font size="2">(07:48:15 PM)</font><b><font size="3"> fontknocker [<i>~adam@119.12.243.20</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(07:49:02 PM)</font><b><font size="3"> pumphaus left the room (quit: Quit: leaving).</font></b><font size="3"></font><br>
+<font size="2">(07:49:14 PM)</font><b><font size="3"> hunger left the room (quit: Ping timeout: 276 seconds).</font></b><font size="3"></font><br>
+<font size="2">(07:49:39 PM)</font><font size="3"> <b>mrmonday:</b> ahigerd: take a look at /etc/login.defs</font><br>
+<font size="2">(07:49:52 PM)</font><font size="3"> <b>***ahigerd</b> checks</font><br>
+<font size="2">(07:50:01 PM)</font><font size="3"> <b>ahigerd:</b> oho, thank you :)</font><br>
+<font size="2">(07:51:07 PM)</font><font size="3"> <b>mrmonday:</b> if there's nothing in there, check if you've got anything that'll deny logins eg fail2ban, that kind of thing, then make sure root isn't blocked by that</font><br>
+<font size="2">(07:51:29 PM)</font><b><font size="3"> fontknocker left the room.</font></b><font size="3"></font><br>
+<font size="2">(07:51:38 PM)</font><font size="3"> <b>mrmonday:</b> another good idea would be to check logs in /var/log and see if any mention a reason for it, if they do you're just a quick google away from an answer</font><br>
+<font size="2">(07:51:38 PM)</font><b><font size="3"> Appleman1234 left the room (quit: Ping timeout: 276 seconds).</font></b><font size="3"></font><br>
+<font size="2">(07:52:04 PM)</font><font size="3"> <b>ahigerd:</b> pam's complaining about it not being a secure tty</font><br>
+<font size="2">(07:52:04 PM)</font><font size="3"> <b>mrmonday:</b> providing you can gain root access without logging in as root (sudo, live cd, that kinda thing)</font><br>
+<font size="2">(07:52:19 PM)</font><font size="3"> <b>ahigerd:</b> I've got root access already, as I said -- I can ssh root@localhost :P</font><br>
+<font size="2">(07:52:27 PM)</font><font size="3"> <b>ahigerd:</b> But I can't pop up a terminal asking for a root login</font><br>
+<font size="2">(07:52:45 PM)</font><font size="3"> <b>mrmonday:</b> aah</font><br>
+<font size="2">(07:53:02 PM)</font><font size="3"> <b>mrmonday:</b> hope I've helped there anyways, good luck getting it sorted :)</font><br>
+<font size="2">(07:53:06 PM)</font><font size="3"> <b>***mrmonday</b> disappears</font><br>
+<font size="2">(07:53:13 PM)</font><font size="3"> <b>ahigerd:</b> Thanks :)</font><br>
+<font size="2">(07:53:27 PM)</font><b><font size="3"> mrmonday left the room (quit: Quit: 3am, yaay :3).</font></b><font size="3"></font><br>
+<font size="2">(07:59:49 PM)</font><font size="3"> <b>alexandernst:</b> How can I style only certain widget? I have  QWidget:.tab { ...styles... } , but I have a few QWidgets. The QWidget that I want to style is called &quot;mainWidget&quot;. I tried QWidget#mainWidget::tab but it doesn't work. Any other ideas?</font><br>
+<font size="2">(08:00:20 PM)</font><font size="3"> <b>ahigerd:</b> #mainWidget { ... } should work</font><br>
+<font size="2">(08:00:34 PM)</font><font size="3"> <b>ahigerd:</b> I dunno about targeting the tab on it; it might be QWidget::tab#mainWidget instead of the other way around?</font><br>
+<font size="2">(08:00:34 PM)</font><b><font size="3"> dulcatos left the room (quit: ).</font></b><font size="3"></font><br>
+<font size="2">(08:01:07 PM)</font><b><font size="3"> haldrik [<i>~haldrik@190.253.251.160</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(08:02:00 PM)</font><b><font size="3"> kyxzme left the room (quit: Remote host closed the connection).</font></b><font size="3"></font><br>
+<font size="2">(08:02:15 PM)</font><font size="3"> <b>alexandernst:</b> ahigerd: nope, still nothing</font><br>
+<font size="2">(08:02:23 PM)</font><b><font size="3"> [HaldriK] left the room (quit: Read error: Connection reset by peer).</font></b><font size="3"></font><br>
+<font size="2">(08:02:28 PM)</font><font size="3"> <b>special:</b> alexandernst: by &quot;is called mainWidget&quot;, do you mean objectName?</font><br>
+<font size="2">(08:02:30 PM)</font><font size="3"> <b>ahigerd:</b> Yes</font><br>
+<font size="2">(08:02:35 PM)</font><font size="3"> <b>alexandernst:</b> yes</font><br>
+<font size="2">(08:02:39 PM)</font><font size="3"> <b>special:</b> k, just checking.</font><br>
+<font size="2">(08:02:45 PM)</font><font size="3"> <b>ahigerd:</b> setObjectName(&quot;mainWidget&quot;)</font><br>
+<font size="2">(08:02:45 PM)</font><b><font size="3"> Afrix left the room (quit: Quit: Leaving).</font></b><font size="3"></font><br>
+<font size="2">(08:02:58 PM)</font><font size="3"> <b>alexandernst:</b> yes, I meant that by &quot;It's name is...&quot;</font><br>
+<font size="2">(08:03:03 PM)</font><font size="3"> <b>ahigerd:</b> Juuuust checking</font><br>
+<font size="2">(08:04:15 PM)</font><b><font size="3"> Appleman1234 [<i>~Appleman1@CPE-60-226-176-19.qld.bigpond.net.au</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(08:05:35 PM)</font><font size="3"> <b>alexandernst:</b> ahigerd: ok, fixed :)</font><br>
+<font size="2">(08:05:41 PM)</font><font size="3"> <b>ahigerd:</b> ?</font><br>
+<font size="2">(08:05:52 PM)</font><font size="3"> <b>alexandernst:</b> QTabWidget.setObjectName(&quot;tabwidget&quot;) is not enugh</font><br>
+<font size="2">(08:06:07 PM)</font><font size="3"> <b>alexandernst:</b> I had to do QTabWidget.tabBar().setObjectName...</font><br>
+<font size="2">(08:06:11 PM)</font><font size="3"> <b>ahigerd:</b> Aha</font><br>
+<font size="2">(08:06:11 PM)</font><font size="3"> <b>alexandernst:</b> and then in the style</font><br>
+<font size="2">(08:06:16 PM)</font><font size="3"> <b>ahigerd:</b> That'd do it</font><br>
+<font size="2">(08:06:23 PM)</font><font size="3"> <b>alexandernst:</b> QTabBar::tab#tabBarWidget</font><br>
+<font size="2">(08:06:36 PM)</font><font size="3"> <b>alexandernst:</b> thanks for the help :)</font><br>
+<font size="2">(08:07:19 PM)</font><b><font size="3"> anuvrat [<i>~anuvrat@115.118.58.117</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(08:07:43 PM)</font><font size="3"> <b>ahigerd:</b> np :(</font><br>
+<font size="2">(08:07:45 PM)</font><font size="3"> <b>ahigerd:</b> :)*</font><br>
+<font size="2">(08:08:48 PM)</font><b><font size="3"> gring0w left the room (quit: Ping timeout: 248 seconds).</font></b><font size="3"></font><br>
+<font size="2">(08:15:31 PM)</font><font size="3"> <b>haldrik:</b> I go to sleep</font><br>
+<font size="2">(08:15:33 PM)</font><font size="3"> <b>haldrik:</b> bye</font><br>
+<font size="2">(08:15:35 PM)</font><b><font size="3"> thiago left the room (quit: Ping timeout: 276 seconds).</font></b><font size="3"></font><br>
+<font size="2">(08:16:48 PM)</font><b><font size="3"> GrecKo_ left the room (quit: Ping timeout: 248 seconds).</font></b><font size="3"></font><br>
+<font size="2">(08:17:07 PM)</font><b><font size="3"> edhunter left the room (quit: Ping timeout: 246 seconds).</font></b><font size="3"></font><br>
+<font size="2">(08:17:07 PM)</font><b><font size="3"> mal``` left the room (quit: Quit: Coyote finally caught me).</font></b><font size="3"></font><br>
+<font size="2">(08:17:16 PM)</font><b><font size="3"> mal`` [<i>~mal``@li14-39.members.linode.com</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(08:21:05 PM)</font><b><font size="3"> cytrinox_ [<i>~cyx@krlh-5f7224cb.pool.mediaWays.net</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(08:24:04 PM)</font><b><font size="3"> haldrik left the room (quit: Ping timeout: 264 seconds).</font></b><font size="3"></font><br>
+<font size="2">(08:24:40 PM)</font><b><font size="3"> cytrinox left the room (quit: Ping timeout: 264 seconds).</font></b><font size="3"></font><br>
+<font size="2">(08:24:41 PM)</font><b><font size="3"> cytrinox_ is now known as cytrinox</font></b><font size="3"></font><br>
+<font size="2">(08:25:59 PM)</font><b><font size="3"> sadmonkey777 left the room (quit: Ping timeout: 276 seconds).</font></b><font size="3"></font><br>
+<font size="2">(08:27:24 PM)</font><b><font size="3"> anuvrat left the room (quit: Ping timeout: 276 seconds).</font></b><font size="3"></font><br>
+<font size="2">(08:28:56 PM)</font><b><font size="3"> edhunter [<i>~edhunter@84-23-72-3.blue.kundencontroller.de</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(08:30:04 PM)</font><b><font size="3"> thiago [<i>~thiago@kde/thiago</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(08:32:32 PM)</font><b><font size="3"> Teminian_Robin left the room (quit: Quit: Leaving.).</font></b><font size="3"></font><br>
+<font size="2">(08:34:05 PM)</font><b><font size="3"> gregschlom [<i>~gregschlo@123.20.130.175</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(08:37:04 PM)</font><b><font size="3"> mtthw92 left the room (quit: Ping timeout: 248 seconds).</font></b><font size="3"></font><br>
+<font size="2">(08:37:41 PM)</font><b><font size="3"> Lucifer left the room (quit: Remote host closed the connection).</font></b><font size="3"></font><br>
+<font size="2">(08:38:33 PM)</font><b><font size="3"> sadmonkey777 [<i>~sadmonkey@207.194.87.159</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(08:42:38 PM)</font><b><font size="3"> Lucifer [<i>~dave@pool-173-74-73-173.dllstx.fios.verizon.net</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(08:49:39 PM)</font><b><font size="3"> Styles [<i>~Styles@unaffiliated/styles</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(08:49:45 PM)</font><b><font size="3"> wiglot left the room (quit: Remote host closed the connection).</font></b><font size="3"></font><br>
+<font size="2">(08:51:11 PM)</font><b><font size="3"> spinningcompass left the room (quit: Quit: spinningcompass).</font></b><font size="3"></font><br>
+<font size="2">(08:52:29 PM)</font><b><font size="3"> bholst__ [<i>~quassel@p5B3E834E.dip0.t-ipconnect.de</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(08:53:32 PM)</font><b><font size="3"> bholst_ left the room (quit: Ping timeout: 260 seconds).</font></b><font size="3"></font><br>
+<font size="2">(08:54:42 PM)</font><b><font size="3"> KrzaQ left the room (quit: Disconnected by services).</font></b><font size="3"></font><br>
+<font size="2">(08:56:45 PM)</font><b><font size="3"> wbooze left the room (quit: Ping timeout: 245 seconds).</font></b><font size="3"></font><br>
+<font size="2">(08:57:44 PM)</font><b><font size="3"> __name__ left the room (quit: Remote host closed the connection).</font></b><font size="3"></font><br>
+<font size="2">(09:01:15 PM)</font><b><font size="3"> xxcv [<i>~asdf@c122-106-162-239.carlnfd1.nsw.optusnet.com.au</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(09:03:43 PM)</font><b><font size="3"> sven423 left the room (quit: Disconnected by services).</font></b><font size="3"></font><br>
+<font size="2">(09:03:43 PM)</font><b><font size="3"> sven424 [<i>~quassel@amarok/rokymotion/sven423</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(09:04:23 PM)</font><b><font size="3"> Seppoz_work left the room (quit: Remote host closed the connection).</font></b><font size="3"></font><br>
+<font size="2">(09:15:27 PM)</font><b><font size="3"> techshaddy [<i>~techshadd@27.248.72.1</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(09:24:47 PM)</font><b><font size="3"> lbt [<i>~david@Maemo/community/contributor/lbt</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(09:24:53 PM)</font><b><font size="3"> lbt left the room (quit: Read error: Connection reset by peer).</font></b><font size="3"></font><br>
+<font size="2">(09:39:39 PM)</font><b><font size="3"> fixl [<i>~fixl@124-148-178-178.dyn.iinet.net.au</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(09:39:44 PM)</font><b><font size="3"> pramodxyle [<i>~cyborg@122.167.80.86</i>] entered the room.</font></b><font size="3"></font><br>
+<font size="2">(09:39:44 PM)</font><b><font size="3"> xxcv left the room (quit: Ping timeout: 265 seconds).</font></b><font size="3"></font><br>
+<hr><br>
+<span style='font-weight: normal;'><font size="2">(07:05:17 PM) </font></span><b><font size="3">The topic for #qt is: Latest Qt: 4.7.3 | docs: qt.nokia.com/doc/ | #qt-creator | Bugs: bugreports.qt.nokia.com | Off-topic: #qt-chat | Forum: <a href="http://www.qtcentre.org">www.qtcentre.org</a> | Mailing lists: lists.qt.nokia.com | Nokia devices and NDK: <a href="http://www.forum.nokia.com">www.forum.nokia.com</a> | Symbian: #qt-symbian | Maemo: #qt-maemo</font></b><br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:05:44 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>qt does a number of things I want to do, but don't understand.<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:06:08 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>fundamentally, I want to make the project I'm writing more modular by building the core of the functionality as a library<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:06:18 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>I am using c++/QT<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:06:43 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>but QT is really only a configuration interface that wraps/configures my functionality<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:07:10 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>it does this much in the same way that VMWare seperates it's host emulater and user-interface<br>
+<span style='font-weight: normal;'><font size="2">(07:07:11 PM) </font></span><b><font size="3">Nephyrin [<i>~Nephyrin@cpe-76-173-88-16.socal.res.rr.com</i>] entered the room.</font></b><br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:07:29 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>the difference is that I need to actually deintegrate QT from the bulk of my code<br>
+<span style='font-weight: normal;'><font size="2">(07:07:36 PM) </font></span><b><font size="3">nwoki left the room (quit: Read error: Connection reset by peer).</font></b><br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:07:40 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>I don't really understand how to do what I'm trying to do<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:08:19 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>it's probably too complicated an answer for just a dialog.  Google doesn't seem to specifically address my use case<br>
+<span style='font-weight: normal;'><font size="2">(07:08:25 PM) </font></span><b><font size="3">loonysalmon [<i>6c02f2a8@gateway/web/freenode/ip.108.2.242.168</i>] entered the room.</font></b><br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:08:40 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>and I don't really understand whether I want a static library, a shared library, or something else.<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:09:00 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>I do want to be able to build using a more test-driven approach<br>
+<span style='font-weight: normal;'><font size="2">(07:13:25 PM) </font></span><b><font size="3">utu [<i>~nfm@c-76-16-146-204.hsd1.il.comcast.net</i>] entered the room.</font></b><br>
+<span style='font-weight: normal;'><font size="2">(07:14:54 PM) </font></span><b><font size="3">master_of_master left the room (quit: Ping timeout: 250 seconds).</font></b><br>
+<span style='font-weight: normal;'><font size="2"><font color="#03ceca">(07:17:12 PM) </font></font></span><span style='font-weight: normal;color: #03ceca;'>loonysalmon: </span>btw, I solved my problem earlier with the return of my Q_INVOKABLE of type Phonon::MediaObject* returning undefined by using qmlRegisterType&lt;Phonon::MediaObject&gt;()<br>
+<span style='font-weight: normal;'><font size="2"><font color="#03ceca">(07:17:56 PM) </font></font></span><span style='font-weight: normal;color: #03ceca;'>loonysalmon: </span>In case anybody was wondering or if the chatroom is logged.<br>
+<span style='font-weight: normal;'><font size="2">(07:18:59 PM) </font></span><b><font size="3">sergio left the room (quit: Read error: Operation timed out).</font></b><br>
+<span style='font-weight: normal;'><font size="2">(07:19:26 PM) </font></span><b><font size="3">Eli2 [<i>~Eli@p4FE3A5AA.dip.t-dialin.net</i>] entered the room.</font></b><br>
+<span style='font-weight: normal;'><font size="2">(07:24:07 PM) </font></span><b><font size="3">kylls [<i>~kylls1@unaffiliated/kylls</i>] entered the room.</font></b><br>
+<span style='font-weight: normal;'><font size="2">(07:24:57 PM) </font></span><b><font size="3">master_of_master [<i>~master_of@p57B530C8.dip.t-dialin.net</i>] entered the room.</font></b><br>
+<span style='font-weight: normal;'><font size="2">(07:25:53 PM) </font></span><b><font size="3">__name__ left the room (quit: Remote host closed the connection).</font></b><br>
+<span style='font-weight: normal;'><font size="2">(07:25:55 PM) </font></span><b><font size="3">kylls left the room (quit: Excess Flood).</font></b><br>
+<span style='font-weight: normal;'><font size="2">(07:26:02 PM) </font></span><b><font size="3">MrFahrenheit left the room (quit: Ping timeout: 258 seconds).</font></b><br>
+<span style='font-weight: normal;'><font size="2">(07:26:50 PM) </font></span><b><font size="3">kylls [<i>~kylls1@unaffiliated/kylls</i>] entered the room.</font></b><br>
+<span style='font-weight: normal;'><font size="2"><font color="#af7f00">(07:28:08 PM) </font></font></span><span style='font-weight: bold;color: #af7f00;'>chriadam: </span>mrgenixus: you may have to be more specific.  Qt is a set of cross-platform APIs which provide certain functionality.  You can build an application using Qt, which links against Qt dynamically (or statically if you have a license or otherwise satisfy the legal requirements - ask a lawyer); OR you can build a library which itself uses Qt classes internally.  wanting to be able to develop &quot;using a more test-driven approach&quot; is entirely orthogonal to this<br>
+<span style='font-weight: normal;'><font size="2"><font color="#9a23db">(07:28:08 PM) </font></font></span><span style='font-weight: normal;color: #9a23db;'>chriadam: </span> discussion, though.<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:28:38 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>right<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:28:40 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>um.<br>
+<span style='font-weight: normal;'><font size="2">(07:28:44 PM) </font></span><b><font size="3">mzanetti left the room (quit: Read error: No route to host).</font></b><br>
+<span style='font-weight: normal;'><font size="2">(07:28:56 PM) </font></span><b><font size="3">mzanetti [<i>~micha@2001:4dd0:fddf:0:21c:b3ff:fec3:e17a</i>] entered the room.</font></b><br>
+<span style='font-weight: normal;'><font size="2">(07:29:03 PM) </font></span><b><font size="3">ferdna left the room (quit: ).</font></b><br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:29:08 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>I'm just using QT as a refrence on a thing I want my code to be like<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:29:36 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>in the sense that<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:30:01 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>I would prefer that the core of the code I am writing not be intrinsically executeable<br>
+<span style='font-weight: normal;'><font size="2">(07:30:03 PM) </font></span><b><font size="3">ver left the room (quit: Ping timeout: 260 seconds).</font></b><br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:30:11 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>but that I would build an interface that references it.<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:30:35 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>I would kindof like my code to be a compiled thing that I package with other compiled things, that use it<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:30:58 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>I may be trying to do things the long way around<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:31:07 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>that has happened before.<br>
+<span style='font-weight: normal;'><font size="2">(07:31:09 PM) </font></span><b><font size="3">Afrix [<i>~Afrix4@2.26.56.160</i>] entered the room.</font></b><br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:31:24 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>I know how I would do this in a ton of other languages<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:31:30 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>but I'm baffled by C++<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:31:44 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>the 'compiled' part of the picture makes it screwed up<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:31:45 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>mostly<br>
+<span style='font-weight: normal;'><font size="2">(07:31:55 PM) </font></span><b><font size="3">idoru [<i>idoru@freenode/utility-bot/ex-server/idoru</i>] entered the room.</font></b><br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:31:57 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>I want my code to not be in a QT Project<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:32:09 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>but I want to write a QT project that uses my code<br>
+<span style='font-weight: normal;'><font size="2">(07:32:16 PM) </font></span><b><font size="3">DSurinx [<i>~DSurinx@d54C1C99E.access.telenet.be</i>] entered the room.</font></b><br>
+<span style='font-weight: normal;'><font size="2"><font color="#dd1d3c">(07:32:53 PM) </font></font></span><span style='font-weight: normal;color: #dd1d3c;'>DSurinx: </span>Hi, is there any possible way to install the documentation for the last QT version? The sdk installer errors unfortunatly on osx.<br>
+<span style='font-weight: normal;'><font size="2">(07:33:34 PM) </font></span><b><font size="3">lucas49 [<i>~lucas@186.2.29.38</i>] entered the room.</font></b><br>
+<span style='font-weight: normal;'><font size="2"><font color="#a2a8d7">(07:33:58 PM) </font></font></span><span style='font-weight: normal;color: #a2a8d7;'>the_cybersphinx: </span>Done: <a href="http://bugreports.qt.nokia.com/browse/QTBUG-20302">http://bugreports.qt.nokia.com/browse/QTBUG-20302</a><br>
+<span style='font-weight: normal;'><font size="2"><font color="#af7f00">(07:34:06 PM) </font></font></span><span style='font-weight: bold;color: #af7f00;'>chriadam: </span>mrgenixus: I'm still entirely uncertain what you want to achieve.  are you just trying to use an unrelated library, in a Qt application?  That's not a problem... just look at the qmake documentation...<br>
+<span style='font-weight: normal;'><font size="2">(07:34:28 PM) </font></span><b><font size="3">zemo [<i>~kvirc@unaffiliated/zemo</i>] entered the room.</font></b><br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:34:47 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>the core of what I'm doing doesn't use QT at all, or shouldn'y<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:34:50 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>er shouldn't<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:35:06 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>I want to make it a library the QT interface I write uses<br>
+<span style='font-weight: normal;'><font size="2"><font color="#af7f00">(07:35:08 PM) </font></font></span><span style='font-weight: bold;color: #af7f00;'>ahigerd: </span>mrgenixus: Let's back up a step.<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:35:10 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>ok<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:35:20 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>Let's ask, at a high level, what it is you're trying to accomplish.<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:35:39 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>It sounds to me that you're trying to write a library, and then have your Qt application use that library, but without using Qt in the library itself?<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:35:39 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>I have an opengl application that parses a file and displays it graphically<br>
+<span style='font-weight: normal;'><font size="2">(07:35:40 PM) </font></span><b><font size="3">ver [<i>~ver@fox.foxmoxie.org</i>] entered the room.</font></b><br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:36:02 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>ahigerd: I think you've hit the nail on the head<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:36:08 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>Assumedly so you can use that library on other platforms (perhaps iOS) with a different UI.<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:36:25 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>sure, we'll say that<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:36:32 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>it's like what I want<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:36:51 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>Well, what do you want? Your reasoning for avoiding Qt may be unnecessary<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:37:25 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>currently, QT is integrated with my code.<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:37:40 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>the signals/slots archetecture breaks the chain of responsibility<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:37:45 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>which would be ok<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:37:59 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>but, it makes it so that I don't get predictable results<br>
+<span style='font-weight: normal;'><font size="2">(07:38:09 PM) </font></span><b><font size="3">lucas49 left the room (quit: Remote host closed the connection).</font></b><br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:38:09 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>specifically, I call slots when I should throw exceptions<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:38:17 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>If you're not getting predictable results using signals and slots you're doing something wron--yes, that would do it<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:38:23 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>I wish to completely eliminate this issue<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:38:43 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>my core functionality will be just as good without any QT in it<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:38:44 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>Okay, your mistake is thinking that eliminating Qt is necessary to fix that problem.<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:38:52 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>alright<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:39:00 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>lets say I'm writing a QT Project<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:39:21 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>Exceptions in Qt code are fine as long as you make sure to catch them before they hit the event loop or a slot connection.<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:39:24 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>and I'm doing things that need neither to be UI, nor asynchronous<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:39:46 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>ergo, QT is not needed for any part of what my application ACTUALLY does<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:39:50 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>And signals and slots don't have to be UI-related, nor do they have to be asynchronous -- in fact the default implementation of signals is synchronous.<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:39:58 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>and my goal is to write that part of the code to be minimalistic<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:40:01 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>I think you misunderstand what Qt is.<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:40:09 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>Qt is more than just an application GUI toolkit.<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:40:12 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>and, by extension, does not inherently require QT<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:40:15 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>It's an entire development framework.<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:40:20 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>Sure, NOTHING inherently requires Qt.<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:40:23 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>Yeah, I get that<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:40:27 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>I really like QT a lot<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:40:31 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>But Qt does a REALLY GOOD JOB at core code too.<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:40:47 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>Implicitly shared data structures, for instance, and the best string class I've ever worked with.<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:40:52 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>it just doesn't bring anything to the table on this particular bit, as it is mostly math and openGL calls<br>
+<span style='font-weight: normal;'><font size="2">(07:41:00 PM) </font></span><b><font size="3">snesy left the room (quit: Read error: Connection reset by peer).</font></b><br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:41:13 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>and IF I'm using QT with it, I'm using it for the openGl bit<br>
+<span style='font-weight: normal;'><font size="2">(07:41:15 PM) </font></span><b><font size="3">snesy [<i>~snesy@dslb-188-100-171-101.pools.arcor-ip.net</i>] entered the room.</font></b><br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:41:16 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>in anycase<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:41:31 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>the goal has less to do with eliminating QT, and more with making the code stand on it's own<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:41:32 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>In any case, if your intent is to rewrite your stuff to remove the Qt dependency, then do it. *shrug*<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:41:42 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>Not sure what the problem is.<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:41:56 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>If your question is &quot;how do I build a shared library using qmake as a build system?&quot; then ask that :P<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:41:59 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>the very bottom of the tree only depends on the very top of the tree<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:42:16 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>except when it's tricked into accepting the middle of the tree as a substitute<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:42:31 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>and then the middle is selectively synchronized with the top of the tree<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:42:46 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>I mean, seriously, what is it you're trying to do? I understand you want to make your core stand alone, but what do you need help with?<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:42:55 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>I don't need data-management classes that use spinboxes as member variables, when ints will do<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:43:10 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>Who said anything about using spinboxes as member variables?<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:43:17 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>current implementation<br>
+<span style='font-weight: normal;'><font size="2">(07:43:18 PM) </font></span><b><font size="3">kylls left the room (quit: Ping timeout: 258 seconds).</font></b><br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:43:26 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>Well that's just bad design in the first place ;)<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:43:29 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>yes<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:43:34 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>If you're using Qt for core code, it'll be so you can have signals to notify the UI when things in the core have changed.<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:43:38 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>And that's where things really start getting nice<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:43:45 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>That's why I like Qt for core code.<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:43:53 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>but the code breaks because the variables are there so they can be set by signals and slots instead of standard function calls<br>
+<span style='font-weight: normal;'><font size="2">(07:43:56 PM) </font></span><b><font size="3">lucas49 [<i>~lucas@186.2.29.38</i>] entered the room.</font></b><br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:43:57 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>You write proper isolation, and use signals to communicate.<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:44:03 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>also, the things in the core don't change<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:44:08 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>Slots *ARE* standard function calls.<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:44:17 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>If you're having problems, you're doing something wrong in the first place.<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:44:20 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>yes<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:44:29 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>which is why I'm taking everything out<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:44:29 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>And using a spinbox for data storage is definitely wrong ;) But clearly you know that already<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:44:37 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>and putting it all back in on an as-needed basis<br>
+<span style='font-weight: normal;'><font size="2"><font color="#dd1d3c">(07:44:45 PM) </font></font></span><span style='font-weight: normal;color: #dd1d3c;'>DSurinx: </span>Hi, is there any possible way to install the documentation for the last QT version? The sdk installer errors unfortunatly on osx.<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:44:49 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>instead of an &quot;oh that's shiney&quot; basis<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:45:15 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>DSurinx: uh... you could &quot;make docs&quot; from the source package, but I don't know any way to get Assistant + docs without the SDK installer<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:45:18 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>DSurinx, you could use the web, but, otherwise, sorry to be unhelpful, I'm unfamiliar with MAC<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:45:24 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>DSurinx: I haven't had any errors and I use OSX<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:45:36 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>DSurinx: It might be more helpful to tell us what's going wrong ;)<br>
+<span style='font-weight: normal;'><font size="2"><font color="#af7f00">(07:45:54 PM) </font></font></span><span style='font-weight: bold;color: #af7f00;'>ahigerd: </span>mrgenixus: Anyway, still, you haven't told me what you actually need help with. Sounds to me like you know what you want to do already.<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:46:12 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>ahigerd: so. the issue isn't really the QT in the core.  I just want to be able to write my application with a CLI first, and then implement a QT UI without throwing out the CLI code<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:46:27 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>I want the code to be a lib<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:46:37 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>and I can't figure out how to create a lib<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:46:37 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>Okay, fine, but what do you need help with? I could talk design and architecture until I'm blue in the face but that won't help if that's not what you need :P<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:46:42 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>Okay then! :)<br>
+<span style='font-weight: normal;'><font size="2">(07:46:44 PM) </font></span><b><font size="3">semeion left the room (quit: Quit: WeeChat 0.3.5).</font></b><br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:46:55 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>May I assume you're okay with using qmake as a build system?<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:47:01 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>please do<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:47:03 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>Even if you're not using Qt as libraries?<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:47:06 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>sure<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:47:09 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>Then what you need to do is make three projects<br>
+<span style='font-weight: normal;'><font size="2">(07:47:13 PM) </font></span><b><font size="3">swair [<i>~swair@117.211.88.42</i>] entered the room.</font></b><br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:47:15 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>ok<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:47:15 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>The first one is a SUBDIRS project that includes the other two<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:47:18 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>The second is your library<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:47:24 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>The third is your application<br>
+<span style='font-weight: normal;'><font size="2"><font color="#dd1d3c">(07:47:29 PM) </font></font></span><span style='font-weight: normal;color: #dd1d3c;'>DSurinx: </span>ahigerd, i just downloaded the last sdk because i reinstalled my mac, during the install it just errors on every part of the documentation<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:47:30 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>how do I handle this in version control?<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:47:32 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>In the second one all you have to do is say TEMPLATE = lib<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:47:34 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>And that's it :P<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:47:37 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>Also maybe CONFIG -= qt<br>
+<span style='font-weight: normal;'><font size="2"><font color="#af7f00">(07:47:51 PM) </font></font></span><span style='font-weight: bold;color: #af7f00;'>DSurinx: </span>mrgenixus, thanks anyway:)<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:47:53 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>All you have to do is add those three .pro files to the repo<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:48:07 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>so, I create 3 .pro files in the same dir?<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:48:19 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>or I create 3 subdirs with .pro files?<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:48:26 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>The preferred structure is: project/project.pro, project/lib/lib.pro, project/app/app.pro<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:48:45 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>ok<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:48:49 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>You'll need to set up dependencies and stuff but you can read about that in the qmake manual<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:48:55 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>what if I want 2 executables?<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:48:57 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>Probably better than me trying to explain it ad hoc<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:49:05 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>4 projects?<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:49:06 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>project/app1/app1.pro and project/app2/app2.pro<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:49:10 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>with 2 app directories?<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:49:11 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>Yep<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:49:16 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>ok<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:49:16 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>And just list them all in project/project.pro<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:49:24 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>Look up the docs on a SUBDIRS project, they're nice<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:49:31 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>help?<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:49:37 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>!subdirs<br>
+<span style='font-weight: normal;'><font size="2">(07:49:37 PM) </font></span><b><font size="3">Tyris left the room (quit: Read error: Connection reset by peer).</font></b><br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:49:41 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>!subdir<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:49:46 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>Aw, darn, no factoids for it<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:49:49 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>Sec, let me get you a link<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:49:56 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span><a href="http://stackoverflow.com/questions/1417776/how-to-use-qmakes-subdirs-template">http://stackoverflow.com/questions/1417776/how-to-use-qmakes-subdirs-template</a><br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:49:58 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>??<br>
+<span style='font-weight: normal;'><font size="2">(07:50:02 PM) </font></span><b><font size="3">Tyris [<i>~Tyris@203-214-41-87.dyn.iinet.net.au</i>] entered the room.</font></b><br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:50:04 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>That would do it<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:50:14 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>he specifically describes my use case<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:50:39 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>That's probably more useful than the docs<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:51:13 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>I don't really understand the question he's asking<br>
+<span style='font-weight: normal;'><font size="2"><font color="#dd1d3c">(07:51:20 PM) </font></font></span><span style='font-weight: normal;color: #dd1d3c;'>DSurinx: </span>ahigerd, did you try the new sdk installer yet?<br>
+<span style='font-weight: normal;'><font size="2">(07:51:51 PM) </font></span><b><font size="3">Hutley [<i>~xfiles@189-47-20-227.dsl.telesp.net.br</i>] entered the room.</font></b><br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:52:13 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>DSurinx: 4.7.3 I... dunno, I think I only tried 4.7.2<br>
+<span style='font-weight: normal;'><font size="2"><font color="#af7f00">(07:52:23 PM) </font></font></span><span style='font-weight: bold;color: #af7f00;'>ahigerd: </span>mrgenixus: Give me just a sec and I'll make you a quick example<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:52:37 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>great!<br>
+<span style='font-weight: normal;'><font size="2">(07:52:38 PM) </font></span><b><font size="3">JesusMazzei_mdx [<i>~mund0x@190.207.233.179</i>] entered the room.</font></b><br>
+<span style='font-weight: normal;'><font size="2">(07:52:38 PM) </font></span><b><font size="3">MAbeeTT_ is now known as MAbeeTT</font></b><br>
+<span style='font-weight: normal;'><font size="2">(07:53:25 PM) </font></span><b><font size="3">swair left the room (quit: Read error: Connection reset by peer).</font></b><br>
+<span style='font-weight: normal;'><font size="2">(07:53:45 PM) </font></span><b><font size="3">swair [<i>~swair@117.211.88.42</i>] entered the room.</font></b><br>
+<span style='font-weight: normal;'><font size="2">(07:55:02 PM) </font></span><b><font size="3">KPG [<i>4c13e39a@gateway/web/freenode/ip.76.19.227.154</i>] entered the room.</font></b><br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:55:14 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span><a href="http://pastebin.com/NUnCagyC">http://pastebin.com/NUnCagyC</a> This is an absolute minimum<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:55:36 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>This doesn't do any real dependency tracking (so modifications to the library won't cause the apps to be recompiled)<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:55:40 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>But it's a start<br>
+<span style='font-weight: normal;'><font size="2">(07:55:43 PM) </font></span><b><font size="3">leinir left the room (quit: Ping timeout: 240 seconds).</font></b><br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:55:57 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>I can always make clean &amp;&amp; make<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:56:01 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>In order to build this, you issue &quot;qmake -r&quot; in project/ and then &quot;make&quot; as normal<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:56:17 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>so I want to qmake -r &amp;&amp; make clean &amp;&amp; make<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:56:24 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>int the project root<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:56:30 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>You'll only need to qmake -r if you've changed a .pro file<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:56:34 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>ok<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:56:42 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>Or added a QObject to a .h file that didn't exist before<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:56:49 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>Or a couple other quibbling little implementation details<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:56:55 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>and the config -= qt, is only required if I'm stripping QT out entirely<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:56:57 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>But basically make will run qmake when needed<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:56:58 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>Right<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:57:06 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>ok<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:57:06 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>And you might need i.e. QT += opengl<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:57:25 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>so, lets say I've done that, as it's pretty simple, now that I understand what's going on ...<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:57:26 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>But that's your basic template for multi-target projects<br>
+<span style='font-weight: normal;'><font size="2">(07:57:32 PM) </font></span><b><font size="3">utu left the room (quit: Read error: Connection reset by peer).</font></b><br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:57:36 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>how do I use lib from app1?<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:57:53 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>LIBS += -L../lib -llib (for liblib.so, which is the default output name of lib.pro)<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:58:06 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>Though that won't work for actually running it thanks to runtime pathing<br>
+<span style='font-weight: normal;'><font size="2">(07:58:26 PM) </font></span><b><font size="3">swair left the room (quit: Ping timeout: 240 seconds).</font></b><br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:58:32 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>You'll need to look up rpath or LD_LIBRARY_PATH or similar for that<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:58:41 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>Each platform has a different solution, unfortunately<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(07:59:02 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>Windows has the manifest (or failing that searches in the .exe's folder for .dlls), Linux has rpath, Mac has install_name_tool<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:59:35 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>well, what if I just want it to compile in statically?<br>
+<span style='font-weight: normal;'><font size="2">(07:59:53 PM) </font></span><b><font size="3">snesy left the room (quit: Remote host closed the connection).</font></b><br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(07:59:55 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>... can I use a resource to include it as a resource?<br>
+<span style='font-weight: normal;'><font size="2"><font color="#48c4e8">(08:00:00 PM) </font></font></span><span style='font-weight: normal;color: #48c4e8;'>KPG: </span>I am trying to get the string &quot;test&quot; to print out to the terminal when my window is resized but I am having difficulty overriding  the resizeEvent() proprely. I have pasted my code here <a href="http://pastebin.com/3XrvEMA6">http://pastebin.com/3XrvEMA6</a>. Could anyone possibly offer a solution as to what might be the problem with my code?<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(08:00:01 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>and call it that wat?<br>
+<span style='font-weight: normal;'><font size="2">(08:00:09 PM) </font></span><b><font size="3">JesusMazzei_mdx left the room (quit: Quit: Saliendo).</font></b><br>
+<span style='font-weight: normal;'><font size="2">(08:00:15 PM) </font></span><b><font size="3">snesy [<i>~snesy@dslb-188-100-171-101.pools.arcor-ip.net</i>] entered the room.</font></b><br>
+<span style='font-weight: normal;'><font size="2">(08:00:46 PM) </font></span><b><font size="3">ArGGu^^ left the room (quit: Read error: Connection reset by peer).</font></b><br>
+<span style='font-weight: normal;'><font size="2"><font color="#650c61">(08:01:20 PM) </font></font></span><span style='font-weight: normal;color: #650c61;'>gonzo-: </span>KPG: resizeEvent is protected function. yours is public. I think that might be a problem<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(08:01:33 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>yeah, can I just include it as a resource?<br>
+<span style='font-weight: normal;'><font size="2">(08:01:40 PM) </font></span><b><font size="3">ArGGu^^ [<i>~arggu@e83-245-131-174.elisa-laajakaista.fi</i>] entered the room.</font></b><br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(08:01:57 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>or include it as part of the executeable?<br>
+<span style='font-weight: normal;'><font size="2">(08:02:21 PM) </font></span><b><font size="3">swair [<i>~swair@117.211.88.42</i>] entered the room.</font></b><br>
+<span style='font-weight: normal;'><font size="2"><font color="#48c4e8">(08:02:25 PM) </font></font></span><span style='font-weight: normal;color: #48c4e8;'>KPG: </span>gonzo-: How would I access it properly then?<br>
+<span style='font-weight: normal;'><font size="2">(08:02:27 PM) </font></span><b><font size="3">snesy left the room (quit: Read error: Connection reset by peer).</font></b><br>
+<span style='font-weight: normal;'><font size="2">(08:02:30 PM) </font></span><b><font size="3">snesy_ [<i>~snesy@dslb-188-100-171-101.pools.arcor-ip.net</i>] entered the room.</font></b><br>
+<span style='font-weight: normal;'><font size="2"><font color="#af7f00">(08:03:01 PM) </font></font></span><span style='font-weight: bold;color: #af7f00;'>ahigerd: </span>mrgenixus: CONFIG += staticlib will make it generate liblib.a instead, and the same LIBS line will pull it in statically<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(08:03:22 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>so, that's probably what I want to do ... <br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(08:03:26 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>Sure.<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(08:03:29 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>That'd avoid the deployment issues<br>
+<span style='font-weight: normal;'><font size="2"><font color="#650c61">(08:03:29 PM) </font></font></span><span style='font-weight: normal;color: #650c61;'>gonzo-: </span>KPG: you can access it in your class or any derived class<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(08:03:31 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>but it's an either/or?<br>
+<span style='font-weight: normal;'><font size="2">(08:03:33 PM) </font></span><b><font size="3">silent-bob left the room (quit: Remote host closed the connection).</font></b><br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(08:03:48 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>I can't get it to compile in and compile as a target?<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(08:03:50 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>If you want to build it dynamically AND statically you'll need two .pro files (but they can use the same source files)<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(08:03:58 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>ok<br>
+<span style='font-weight: normal;'><font size="2">(08:04:05 PM) </font></span><b><font size="3">holmesII [<i>~John@syslab-pc4.cs.uml.edu</i>] entered the room.</font></b><br>
+<span style='font-weight: normal;'><font size="2">(08:04:08 PM) </font></span><b><font size="3">yrvn left the room (quit: Read error: Connection reset by peer).</font></b><br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(08:04:09 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>But that seems a little strange<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(08:04:14 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>it does<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(08:04:16 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>And won't work as expected on Windows<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(08:04:26 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>If you're going to link statically, why do you need a dynamic library?<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(08:04:27 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>lets say I haven't quite decided how I want this to work<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(08:04:33 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>lol<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(08:04:34 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>It's an easy switch to flip :P<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(08:04:37 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>yes<br>
+<span style='font-weight: normal;'><font size="2"><font color="#91938b">(08:04:56 PM) </font></font></span><span style='font-weight: normal;color: #91938b;'>holmesII: </span>Hi, I just installed a QT in my windows 7 system. However, when I follow the instruction <a href="http://doc.qt.nokia.com/qtcreator-snapshot/creator-mobile-example.html">http://doc.qt.nokia.com/qtcreator-snapshot/creator-mobile-example.html</a>  i can't find maemo 5 in (Target setup). any idea?<br>
+<span style='font-weight: normal;'><font size="2"><font color="#48c4e8">(08:05:06 PM) </font></font></span><span style='font-weight: normal;color: #48c4e8;'>KPG: </span>gonzo-: Didn't I make the function public in my Window class?<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(08:05:12 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>I think my goal is to distribute the library seperately, in addition to the GUI packages<br>
+<span style='font-weight: normal;'><font size="2"><font color="#af7f00">(08:05:21 PM) </font></font></span><span style='font-weight: bold;color: #af7f00;'>ahigerd: </span>mrgenixus: Then distribute the .a?<br>
+<span style='font-weight: normal;'><font size="2"><font color="#af7f00">(08:05:28 PM) </font></font></span><span style='font-weight: bold;color: #af7f00;'>ahigerd: </span>mrgenixus: Also you probably want to put INCLUDEPATH += ../lib in app1.pro and app2.pro<br>
+<span style='font-weight: normal;'><font size="2"><font color="#af7f00">(08:05:36 PM) </font></font></span><span style='font-weight: bold;color: #af7f00;'>ahigerd: </span>mrgenixus: So that #include &quot;lib.h&quot; works<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(08:05:41 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>ah!<br>
+<span style='font-weight: normal;'><font size="2">(08:05:41 PM) </font></span><b><font size="3">swair left the room (quit: Read error: Connection reset by peer).</font></b><br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(08:05:47 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>that was the last piece<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(08:05:50 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>:)<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(08:06:03 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>lib.h being the master target for the directory?<br>
+<span style='font-weight: normal;'><font size="2"><font color="#91938b">(08:06:11 PM) </font></font></span><span style='font-weight: normal;color: #91938b;'>holmesII: </span>can anybody help me? I am new to QT<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(08:06:12 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>No, being a file inside project/lib/<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(08:06:31 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>right, sorry, that's exactly what I meant<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(08:06:51 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>lib.h, would need to include the rest of the dependency chain,<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(08:07:05 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>No<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(08:07:15 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>from that directory?<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(08:07:16 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>Just include the header files you would normally include if you were doing it as a single monolithic app<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(08:07:22 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>ok<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(08:07:30 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>INCLUDEPATH just lets you sort your repo according to how your project is divided up<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(08:07:59 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>ok<br>
+<span style='font-weight: normal;'><font size="2"><font color="#48c4e8">(08:08:12 PM) </font></font></span><span style='font-weight: normal;color: #48c4e8;'>KPG: </span>gonzo-: What should be the access level of the resizeEvent() in my Window class that extends QWidget?<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(08:08:42 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>KPG: shouldn't you build an accessor function for that?<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(08:09:01 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span><a href="http://pastebin.com/Z0W4mSLJ">http://pastebin.com/Z0W4mSLJ</a><br>
+<span style='font-weight: normal;'><font size="2"><font color="#af7f00">(08:09:10 PM) </font></font></span><span style='font-weight: bold;color: #af7f00;'>ahigerd: </span>mrgenixus: ^ how your project files should look after this discussion<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(08:09:21 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>alright<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(08:09:26 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>thanks so much for that<br>
+<span style='font-weight: normal;'><font size="2"><font color="#af7f00">(08:09:31 PM) </font></font></span><span style='font-weight: bold;color: #af7f00;'>KPG: </span>mrgenixus: I'm not familiar with accessor functions. Could you possibly provide an example?<br>
+<span style='font-weight: normal;'><font size="2"><font color="#af7f00">(08:09:33 PM) </font></font></span><span style='font-weight: bold;color: #af7f00;'>ahigerd: </span>mrgenixus: Plus some DESTDIR stuff to put the build output files in project/<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(08:09:37 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>yeah<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(08:09:40 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>saw that<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(08:10:01 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>Hmm... actually that won't quite work now that I think about it<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(08:10:07 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>On Linux that would have a filename conflict<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(08:10:21 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>I'll probably actually, use that to put the target executables in a Debian or Windows package for installation, but I understand how to sue the documentation to do that<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(08:10:23 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>Since the default filename for an app is the same as the .pro file, which is the same as the directory name XD<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(08:10:40 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>So... you might skip the destdir stuff :P<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(08:10:49 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>Anyway, have fun<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(08:10:52 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>I'll PLAY with the destdir stuff.<br>
+<span style='font-weight: normal;'><font size="2"><font color="#91938b">(08:11:05 PM) </font></font></span><span style='font-weight: normal;color: #91938b;'>holmesII: </span>Hi, I just installed a QT in my windows 7 system. However, when I follow the instruction <a href="http://doc.qt.nokia.com/qtcreator-snapshot/creator-mobile-example.html">http://doc.qt.nokia.com/qtcreator-snapshot/creator-mobile-example.html</a>  i can't find maemo 5 in (Target setup). any idea?<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(08:11:16 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>I can always use symlinks<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(08:11:49 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>holmesII: try #qt-maemo<br>
+<span style='font-weight: normal;'><font size="2"><font color="#91938b">(08:12:25 PM) </font></font></span><span style='font-weight: normal;color: #91938b;'>holmesII: </span>thanks.<br>
+<span style='font-weight: normal;'><font size="2"><font color="#af7f00">(08:12:43 PM) </font></font></span><span style='font-weight: bold;color: #af7f00;'>KPG: </span>mrgenixus: Do you mean a getter function? What would I be returning in that function?<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(08:12:59 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>KPG, it would be like a function proxy<br>
+<span style='font-weight: normal;'><font size="2">(08:13:23 PM) </font></span><b><font size="3">mpsuzuki [<i>~sssa@1816-118.cup.hiroshima-u.ac.jp</i>] entered the room.</font></b><br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(08:13:50 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>actually<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(08:13:53 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>that's not what you want<br>
+<span style='font-weight: normal;'><font size="2"><font color="#af7f00">(08:14:11 PM) </font></font></span><span style='font-weight: bold;color: #af7f00;'>KPG: </span>mrgenixus: I'm sorry, but I am honestly confused by what you mean. What exactly is a function proxy?<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(08:14:14 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>isn't resizeEvent a signal or a slot<br>
+<span style='font-weight: normal;'><font size="2"><font color="#5e7d16">(08:15:13 PM) </font></font></span><span style='font-weight: normal;color: #5e7d16;'>peppe: </span>nope<br>
+<span style='font-weight: normal;'><font size="2"><font color="#af7f00">(08:15:49 PM) </font></font></span><span style='font-weight: bold;color: #af7f00;'>KPG: </span>mrgenixus: What exactly do you mean?<br>
+<span style='font-weight: normal;'><font size="2"><font color="#5e7d16">(08:15:59 PM) </font></font></span><span style='font-weight: normal;color: #5e7d16;'>peppe: </span>holmesII: be sure to have selected the maemo stuff in the installer (otherwise just run the &quot;update&quot; tool or whatever and install)<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(08:16:19 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>well, I'm actually reviewing my original suggestion.  let me look at your question, and ignore what I said, for a second<br>
+<span style='font-weight: normal;'><font size="2"><font color="#91938b">(08:16:35 PM) </font></font></span><span style='font-weight: normal;color: #91938b;'>holmesII: </span>there is no maemo in installer. but iam trying to update all the stuffs and to see what happened.<br>
+<span style='font-weight: normal;'><font size="2"><font color="#91938b">(08:16:59 PM) </font></font></span><span style='font-weight: normal;color: #91938b;'>holmesII: </span>i don't know why. the qt version is 4.7.4<br>
+<span style='font-weight: normal;'><font size="2">(08:17:07 PM) </font></span><b><font size="3">aspek_ [<i>ubuntu@117.192.114.122</i>] entered the room.</font></b><br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(08:17:13 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>That's normal<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(08:17:22 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>The Maemo stuff isn't part of the normal desktop SDK<br>
+<span style='font-weight: normal;'><font size="2"><font color="#91938b">(08:17:41 PM) </font></font></span><span style='font-weight: normal;color: #91938b;'>holmesII: </span>so, what can i do now?<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(08:17:41 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>Also, what platform are you on?<br>
+<span style='font-weight: normal;'><font size="2">(08:17:43 PM) </font></span><b><font size="3">aspek left the room (quit: Ping timeout: 240 seconds).</font></b><br>
+<span style='font-weight: normal;'><font size="2"><font color="#5e7d16">(08:17:49 PM) </font></font></span><span style='font-weight: normal;color: #5e7d16;'>peppe: </span>I see a &quot;maemo toolchain&quot; in the tool<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(08:17:59 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>I don't think you can do Maemo development on Windows<br>
+<span style='font-weight: normal;'><font size="2"><font color="#5e7d16">(08:18:03 PM) </font></font></span><span style='font-weight: normal;color: #5e7d16;'>peppe: </span>(and a symbian one) (and simulators!) (whee)<br>
+<span style='font-weight: normal;'><font size="2"><font color="#91938b">(08:18:15 PM) </font></font></span><span style='font-weight: normal;color: #91938b;'>holmesII: </span>i didn't see it. my system is windows 7 (64 bit)<br>
+<span style='font-weight: normal;'><font size="2"><font color="#5e7d16">(08:18:16 PM) </font></font></span><span style='font-weight: normal;color: #5e7d16;'>peppe: </span>ahigerd: what's that stuff for then?<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(08:18:18 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>KPG: so the original resizeEvent is virtual protected<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(08:18:26 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>peppe: I could be wrong; I haven't messed with it in a couple years<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(08:18:39 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>I think yours has to be protected or private?<br>
+<span style='font-weight: normal;'><font size="2">(08:18:41 PM) </font></span><b><font size="3">maour left the room (quit: Ping timeout: 255 seconds).</font></b><br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(08:18:43 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>peppe: It required Linux back then<br>
+<span style='font-weight: normal;'><font size="2"><font color="#5e7d16">(08:19:02 PM) </font></font></span><span style='font-weight: normal;color: #5e7d16;'>peppe: </span>ahigerd: oh, it could be. I have no idea at all<br>
+<span style='font-weight: normal;'><font size="2"><font color="#91938b">(08:19:16 PM) </font></font></span><span style='font-weight: normal;color: #91938b;'>holmesII: </span>but the instruction seems for windows <a href="http://doc.qt.nokia.com/qtcreator-snapshot/creator-mobile-example.html">http://doc.qt.nokia.com/qtcreator-snapshot/creator-mobile-example.html</a><br>
+<span style='font-weight: normal;'><font size="2"><font color="#91938b">(08:19:33 PM) </font></font></span><span style='font-weight: normal;color: #91938b;'>holmesII: </span>you can the the example location is like &quot;c:\&quot;<br>
+<span style='font-weight: normal;'><font size="2"><font color="#5e7d16">(08:19:38 PM) </font></font></span><span style='font-weight: normal;color: #5e7d16;'>peppe: </span>holmesII: can you run your maintainance tool?<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(08:19:39 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>Huh. Indeed it does.<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(08:19:46 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>qthelp://com.trolltech.qt.460/qdoc/widgets-scribble-scribblearea-cpp.html<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(08:19:51 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>KPG: ^^<br>
+<span style='font-weight: normal;'><font size="2"><font color="#91938b">(08:20:17 PM) </font></font></span><span style='font-weight: normal;color: #91938b;'>holmesII: </span>yes, i am running the maintainance. trying to update all of the stuffs.<br>
+<span style='font-weight: normal;'><font size="2"><font color="#5e7d16">(08:20:23 PM) </font></font></span><span style='font-weight: normal;color: #5e7d16;'>peppe: </span>holmesII: no, under the package manager<br>
+<span style='font-weight: normal;'><font size="2"><font color="#91938b">(08:20:24 PM) </font></font></span><span style='font-weight: normal;color: #91938b;'>holmesII: </span>i will let you know once it done<br>
+<span style='font-weight: normal;'><font size="2"><font color="#91938b">(08:20:38 PM) </font></font></span><span style='font-weight: normal;color: #91938b;'>holmesII: </span>yes. i still don't see maemo<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(08:20:44 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>KPG: in the tut example, it's protected access level<br>
+<span style='font-weight: normal;'><font size="2"><font color="#91938b">(08:20:49 PM) </font></font></span><span style='font-weight: normal;color: #91938b;'>holmesII: </span>but select all of the stuffs in there and update<br>
+<span style='font-weight: normal;'><font size="2"><font color="#5e7d16">(08:21:08 PM) </font></font></span><span style='font-weight: normal;color: #5e7d16;'>peppe: </span>holmesII: development tools?<br>
+<span style='font-weight: normal;'><font size="2"><font color="#5e7d16">(08:21:10 PM) </font></font></span><span style='font-weight: normal;color: #5e7d16;'>peppe: </span>KPG: your code here <a href="http://pastebin.com/3XrvEMA6">http://pastebin.com/3XrvEMA6</a> is wrong<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(08:21:11 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>KPG <a href="http://doc.qt.nokia.com/4.3/widgets-scribble.html">http://doc.qt.nokia.com/4.3/widgets-scribble.html</a><br>
+<span style='font-weight: normal;'><font size="2">(08:21:47 PM) </font></span><b><font size="3">swair [<i>~swair@117.211.88.42</i>] entered the room.</font></b><br>
+<span style='font-weight: normal;'><font size="2">(08:21:50 PM) </font></span><b><font size="3">estan left the room (quit: Quit: brb).</font></b><br>
+<span style='font-weight: normal;'><font size="2"><font color="#48c4e8">(08:21:50 PM) </font></font></span><span style='font-weight: normal;color: #48c4e8;'>KPG: </span>peppe: What is wrong with my code?<br>
+<span style='font-weight: normal;'><font size="2"><font color="#5e7d16">(08:21:54 PM) </font></font></span><span style='font-weight: normal;color: #5e7d16;'>peppe: </span>KPG: namely, you can't do that with signals and slots. line 53 is completely wrong<br>
+<span style='font-weight: normal;'><font size="2"><font color="#91938b">(08:21:59 PM) </font></font></span><span style='font-weight: normal;color: #91938b;'>holmesII: </span>no maemo anywhere. but i will try to install it in linux system . i am running virtual machine in there.<br>
+<b><font color="#777777">peachykeen Peet__ peppe perlite Peruna peterhil </font></b><br>
+<b><font color="#777777">Kalle_L kavacha kde_pepo keithel kernelpanic kevin_b kevsim khindenburg Kicer86 kini kirk kloeri kofee Koteswara KPG krau KRF KrzaQ kszatan Kulrak kuplatupsu kvu Kypeli kytibe </font></b><br>
+<span style='font-weight: normal;'><font size="2"><font color="#48c4e8">(08:22:25 PM) </font></font></span><span style='font-weight: normal;color: #48c4e8;'>KPG: </span>peppe: What is wrong in particular about it?<br>
+<span style='font-weight: normal;'><font size="2"><font color="#5e7d16">(08:22:25 PM) </font></font></span><span style='font-weight: normal;color: #5e7d16;'>peppe: </span>holmesII: indeed strange then. it's there for me<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(08:22:29 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>peppe: KPG line 53 looked odd, but I couldn't say why<br>
+<span style='font-weight: normal;'><font size="2"><font color="#5e7d16">(08:23:06 PM) </font></font></span><span style='font-weight: normal;color: #5e7d16;'>peppe: </span>KPG: 1) you must not pass the argument names, only the argument types 2) you're trying to bind an argument, and that's not allowed at all<br>
+<span style='font-weight: normal;'><font size="2">(08:23:29 PM) </font></span><b><font size="3">anuvrat [<i>~quassel@117.195.34.111</i>] entered the room.</font></b><br>
+<span style='font-weight: normal;'><font size="2"><font color="#5e7d16">(08:23:31 PM) </font></font></span><span style='font-weight: normal;color: #5e7d16;'>peppe: </span>notice that if you ran that thing in any debug mode, an error would have been printed on the console<br>
+<span style='font-weight: normal;'><font size="2"><font color="#48c4e8">(08:23:47 PM) </font></font></span><span style='font-weight: normal;color: #48c4e8;'>KPG: </span>peppe: What do you mean by trying to bind an argument?<br>
+<span style='font-weight: normal;'><font size="2"><font color="#91938b">(08:23:49 PM) </font></font></span><span style='font-weight: normal;color: #91938b;'>holmesII: </span>my system is windows 7 (64 bit), maybe you are using 32bit system?<br>
+<span style='font-weight: normal;'><font size="2"><font color="#91938b">(08:23:51 PM) </font></font></span><span style='font-weight: normal;color: #91938b;'>holmesII: </span>not sure.<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(08:24:02 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>KPG: do to that you need a slot implemented on Window that specifically emits that data<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(08:24:40 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>and, basically, you connect to proxy slot first, it retrieves the data, and emits it<br>
+<span style='font-weight: normal;'><font size="2"><font color="#5e7d16">(08:24:55 PM) </font></font></span><span style='font-weight: normal;color: #5e7d16;'>peppe: </span>holmesII: no, windows 7 64 bit here. but 32 bit libs<br>
+<span style='font-weight: normal;'><font size="2"><font color="#af7f00">(08:24:56 PM) </font></font></span><span style='font-weight: bold;color: #af7f00;'>KPG: </span>mrgenixus: Don't signals emit data and not slots?<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(08:25:03 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>right.<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(08:25:10 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>so you'll need one of each<br>
+<span style='font-weight: normal;'><font size="2"><font color="#91938b">(08:25:22 PM) </font></font></span><span style='font-weight: normal;color: #91938b;'>holmesII: </span>should I do something else? do i need to install other stuffs?<br>
+<span style='font-weight: normal;'><font size="2"><font color="#5e7d16">(08:25:24 PM) </font></font></span><span style='font-weight: normal;color: #5e7d16;'>peppe: </span>holmesII: I don't think you can use the 64 bits libs for that. not sure. try using the online installer so you don't have to download a huge amount of data and check if it has the toolchain<br>
+<span style='font-weight: normal;'><font size="2"><font color="#204a87">(08:25:32 PM) </font></font></span><span style='font-weight: bold;color: #204a87;'>mrgenixus: </span>a slot to handle the event, and a signal to emit the data via, which connects to your endpoint<br>
+<span style='font-weight: normal;'><font size="2"><font color="#af7f00">(08:25:33 PM) </font></font></span><span style='font-weight: bold;color: #af7f00;'>KPG: </span>mrgenixus: What do you mean by that?<br>
+<span style='font-weight: normal;'><font size="2"><font color="#91938b">(08:25:40 PM) </font></font></span><span style='font-weight: normal;color: #91938b;'>holmesII: </span>i see. i will try.<br>
+<span style='font-weight: normal;'><font size="2"><font color="#5e7d16">(08:25:42 PM) </font></font></span><span style='font-weight: normal;color: #5e7d16;'>peppe: </span>but really, I don't know anything about windows development nor maemo/meego<br>
+<span style='font-weight: normal;'><font size="2"><font color="#5e7d16">(08:25:55 PM) </font></font></span><span style='font-weight: normal;color: #5e7d16;'>peppe: </span>ahigerd is the windows guy here &gt;:D<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(08:26:04 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>I am not ;_;<br>
+<span style='font-weight: normal;'><font size="2"><font color="#5e7d16">(08:26:30 PM) </font></font></span><span style='font-weight: normal;color: #5e7d16;'>peppe: </span>KPG: you're trying to bind the 2nd argument of the slot to a constant<br>
+<span style='font-weight: normal;'><font size="2"><font color="#91938b">(08:26:44 PM) </font></font></span><span style='font-weight: normal;color: #91938b;'>holmesII: </span>perhaps i need use online installer. i am using the offline one.<br>
+<span style='font-weight: normal;'><font size="2"><font color="#5e7d16">(08:26:46 PM) </font></font></span><span style='font-weight: normal;color: #5e7d16;'>peppe: </span>well, actually, both arguments<br>
+<span style='font-weight: normal;'><font size="2"><font color="#8633b2">(08:26:51 PM) </font></font></span><span style='font-weight: normal;color: #8633b2;'>ahigerd: </span>holmesII: Ah, probably<br>
+<span style='font-weight: normal;'><font size="2"><font color="#5e7d16">(08:27:04 PM) </font></font></span><span style='font-weight: normal;color: #5e7d16;'>peppe: </span>holmesII: uhm. try it yourself, it's just a few mb<br>
+<span style='font-weight: normal;'><font size="2"><font color="#48c4e8">(08:27:17 PM) </font></font></span><span style='font-weight: normal;color: #48c4e8;'>KPG: </span>peppe: Ah ok thank you.<br>
+<span style='font-weight: normal;'><font size="2"><font color="#91938b">(08:27:25 PM) </font></font></span><span style='font-weight: normal;color: #91938b;'>holmesII: </span>yes. i now saw maemo<br>
+<span style='font-weight: normal;'><font size="2"><font color="#91938b">(08:27:32 PM) </font></font></span><span style='font-weight: normal;color: #91938b;'>holmesII: </span>SXIT<br>
+<span style='font-weight: normal;'><font size="2"><font color="#5e7d16">(08:27:40 PM) </font></font></span><span style='font-weight: normal;color: #5e7d16;'>peppe: </span>KPG: first: you don't need anything of that. store a pointer to that button inside the Window object, and that's it<br>
+<span style='font-weight: normal;'><font size="2"><font color="#91938b">(08:27:59 PM) </font></font></span><span style='font-weight: normal;color: #91938b;'>holmesII: </span>i saw maemo toolchina now<br>
+<span style='font-weight: normal;'><font size="2"><font color="#5e7d16">(08:28:00 PM) </font></font></span><span style='font-weight: normal;color: #5e7d16;'>peppe: </span>second, I don't see the point in having a short-circuited signal, but if it's just an exercise feel free to experiment
+</body>
+</html>
